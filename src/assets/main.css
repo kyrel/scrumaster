@@ -8,7 +8,7 @@
 
 a {
     text-decoration: none;
-    color: hsla(160deg, 100%, 37%, 100%);
+    color: var(--brand-light);
     transition: 0.4s;
 }
 
@@ -60,12 +60,6 @@ input[type="email"]:focus {
     color: var(--text1);
     cursor: pointer;
     padding: 0;
-}
-
-@media (hover: hover) {
-    a:hover {
-        background-color: hsla(160deg, 100%, 37%, 20%);
-    }
 }
 
 @media (max-width: 480px) {
