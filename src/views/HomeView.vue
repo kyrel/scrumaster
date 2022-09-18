@@ -17,7 +17,7 @@ watchEffect(() => {
 </script>
 
 <template>
-    <ul class="category-list">
+    <ul class="category-list" v-if="boardStore.gotInitialState">
         <li v-for="category of boardStore.categories" :key="category.id" class="category-list__item">
             <CategoryPartialView :category="category" />
         </li>

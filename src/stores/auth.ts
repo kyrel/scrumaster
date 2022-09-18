@@ -5,11 +5,11 @@ import type { User } from '@/types'
 
 export const useAuthStore = defineStore('auth', () => {
     const user = ref(null as null | User);
-    const gotInitialAuthState = ref(false)
+    const gotInitialAuthState = ref(false);
 
     firebase.onAuthStateChanged((newUser) => {
         user.value = newUser;
-        if (!gotInitialAuthState.value) gotInitialAuthState.value = true
+        if (!gotInitialAuthState.value) gotInitialAuthState.value = true;
     });
 
     async function sendAuthLink(email: string) {

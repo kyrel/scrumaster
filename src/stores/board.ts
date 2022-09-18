@@ -7,9 +7,13 @@ import firebase from '@/firebaseGateway';
 export const useBoardStore = defineStore('board', () => {
 
     const categories = ref([] as Category[]);
+    const gotInitialState = ref(false);
     const awaitingCategoryToEditId = ref(null as null | string);
 
-    firebase.onBoardChange(() => { return useAuthStore().user?.uid ?? null; }, newCategories => categories.value = newCategories)
+    firebase.onBoardChange(() => { return useAuthStore().user?.uid ?? null; }, newCategories => {
+        categories.value = newCategories;
+        if (!gotInitialState.value) gotInitialState.value = true;
+    })
 
     function addCategory() {        
         awaitingCategoryToEditId.value = firebase.addCategory("New category");
@@ -41,5 +45,5 @@ export const useBoardStore = defineStore('board', () => {
         firebase.removeUserVote(categoryId, ticketId, authStore.user!.uid);
     }
 
-    return { categories, awaitingCategoryToEditId: readonly(awaitingCategoryToEditId), addCategory, stopWaitingForCategoryToEdit, renameCategory, addTicket, removeTicket, addCurrentUserVote, removeCurrentUserVote };
+    return { categories, gotInitialState, awaitingCategoryToEditId: readonly(awaitingCategoryToEditId), addCategory, stopWaitingForCategoryToEdit, renameCategory, addTicket, removeTicket, addCurrentUserVote, removeCurrentUserVote };
 })

@@ -107,6 +107,10 @@ function removeTicket(ticket: Ticket) {
     @media (hover: none) {
         display: inline-block;
     }
+
+    @media (pointer: coarse) {
+        display: inline-block;
+    }
 }
 
 .ticket__vote-zone {
