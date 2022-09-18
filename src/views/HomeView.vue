@@ -26,7 +26,7 @@ watchEffect(() => {
     </ul>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 /* @define category-list */
 .category-list {
     list-style: none;
@@ -41,5 +41,9 @@ watchEffect(() => {
 
 .category-list__item {
     scroll-snap-align: center;
+
+    &:last-child {
+        scroll-snap-align: end;
+    }
 }
 </style>
