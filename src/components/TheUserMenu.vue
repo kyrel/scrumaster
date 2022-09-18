@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useAuthStore } from '@/stores/user';
+import { useAuthStore } from '@/stores/auth';
 import { onMounted, onUnmounted, ref } from 'vue';
 import IconUser from './icons/IconUser.vue';
 

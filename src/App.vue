@@ -6,7 +6,7 @@ import IconScrew from '@/components/icons/IconScrew.vue';
 import TheUserMenu from '@/components/TheUserMenu.vue';
 import TheThemeSwitch from '@/components/TheThemeSwitch.vue';
 
-import { useAuthStore } from '@/stores/user';
+import { useAuthStore } from '@/stores/auth';
 
 const authStore = useAuthStore();
 

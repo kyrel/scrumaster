@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useBoardStore } from '@/stores/board';
-import { useAuthStore } from '@/stores/user';
+import { useAuthStore } from '@/stores/auth';
 import { watchEffect } from 'vue';
 import { useRouter } from 'vue-router';
 import CategoryPartialView from '../components/CategoryPartialView.vue';

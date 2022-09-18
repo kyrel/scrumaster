@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useAuthStore } from '@/stores/user';
+import { useAuthStore } from '@/stores/auth';
 import { ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 
@@ -47,7 +47,7 @@ function signUp() {
             v-model.trim="email" placeholder="you@example.com" />
         <button class="btn">Request access</button>
         <div class="sign-up__success" v-if="latestResult === true">
-            <span class="sign_up__emoji">&#129395;</span>
+            <span class="sign-up__emoji">&#129395;</span>
             Please check the inbox (or spam folder!) of <strong>{{ latestEmail }}</strong> for the invitation.<br />
             Feel free to use the form again with another email address!
         </div>
