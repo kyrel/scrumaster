@@ -30,14 +30,16 @@ onUnmounted(() => { document.body.removeEventListener("click", clickOutside) })
         <div class="user-menu__avatar" @click="popupVisible = !popupVisible">
             <IconUser />
         </div>
-        <div class="user-menu__dropdown rad-shadow" v-if="popupVisible">
+        <div class="user-menu__dropdown" v-if="popupVisible">
             <h3 class="user-menu__dropdown-email">{{ authStore.userEmail }}</h3>
             <button class="btn user-menu__sign-out-button" @click="signOut">Sign out</button>
         </div>
     </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+@use "@/assets/shadows";
+
 /* @define user-menu */
 .user-menu {
     position: relative;
@@ -54,6 +56,8 @@ onUnmounted(() => { document.body.removeEventListener("click", clickOutside) })
 }
 
 .user-menu__dropdown {
+    @include shadows.scru-shadow;
+
     position: absolute;
     right: 0;
     top: calc(100% + 8px);

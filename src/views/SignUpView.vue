@@ -41,7 +41,7 @@ function signUp() {
 </script>
 
 <template>
-    <form @submit.prevent="signUp" class="sign-up rad-shadow">
+    <form @submit.prevent="signUp" class="sign-up">
         <h2 class="sign-up__prompt">Let us send you (or your friend) an email invitation to join this board!</h2>
         <input class="sign-up__email" :class="{'sign-up__email--error': emailHasError}" type="email"
             v-model.trim="email" placeholder="you@example.com" />
@@ -59,9 +59,13 @@ function signUp() {
     </form>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+@use "@/assets/shadows";
+
 /* @define sign-up */
 .sign-up {
+    @include shadows.scru-shadow;
+
     max-width: 400px;
     margin-left: auto;
     margin-right: auto;

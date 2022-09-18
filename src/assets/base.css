@@ -69,12 +69,6 @@
         sans-serif;
 }
 
-.rad-shadow {
-    box-shadow:
-        0 2.8px 2.2px hsl(var(--surface-shadow) / calc(var(--shadow-strength) + 0.03)),
-        0 6.7px 5.3px hsl(var(--surface-shadow) / calc(var(--shadow-strength) + 0.01));
-}
-
 @media (prefers-color-scheme: dark) {
     :root {
         color-scheme: dark;
