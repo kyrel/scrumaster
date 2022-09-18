@@ -62,13 +62,14 @@ function removeTicket(ticket: Ticket) {
     </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .shake {
     animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
     transform: translate3d(0, 0, 0);
 }
 
 @keyframes shake {
+
     10%,
     90% {
         transform: translate3d(-0.5px, 0, 0);
@@ -105,18 +106,22 @@ function removeTicket(ticket: Ticket) {
     display: none;
     opacity: 0.4;
     cursor: pointer;
-}
 
-.ticket__remove:active {
-    transform: translate(1px, 1px);
-}
+    &:hover {
+        opacity: 1;
+    }
 
-.ticket__remove:hover {
-    opacity: 1;
-}
+    &:active {
+        transform: translate(1px, 1px);
+    }
 
-.ticket:hover .ticket__remove {
-    display: inline-block;
+    .ticket:hover & {
+        display: inline-block;
+    }
+
+    @media (hover: none) {
+        display: inline-block;
+    }
 }
 
 .ticket__vote-zone {
