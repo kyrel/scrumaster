@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, isSignInWithEmailLink, onAuthStateChanged as fireOnAuthStateChanged, sendSignInLinkToEmail, signInWithEmailLink, signOut as fireSignOut } from "firebase/auth";
-import { getDatabase, onValue, push, ref, set } from "firebase/database";
+import { getDatabase, onValue, push, ref, set, update } from "firebase/database";
 import type { User, Category, Ticket } from "./types";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -54,6 +54,11 @@ function addCategory(name: string) {
     const categories = ref(db, "categories");
     const newCategory = push(categories);
     set(newCategory, { name });
+}
+
+function renameCategory(id: string, name: string) {
+    const dbCategory = ref(db, `categories/${id}`);
+    update(dbCategory, { name });
 }
 
 function addTicket(categoryId: string, text: string) {
@@ -117,5 +122,5 @@ function onBoardChange(userUidGetter: () => string | null, callback: (board: Cat
 
 export default {
     onAuthStateChanged, sendAuthLink, isAuthLink, signIn, signOut,
-    addCategory, addTicket, removeTicket, addUserVote, removeUserVote, onBoardChange
+    addCategory, renameCategory, addTicket, removeTicket, addUserVote, removeUserVote, onBoardChange
 }

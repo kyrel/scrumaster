@@ -14,6 +14,10 @@ export const useBoardStore = defineStore('board', () => {
         firebase.addCategory(name);        
     }
 
+    function renameCategory(id: string, name: string) {
+        firebase.renameCategory(id, name);
+    }
+
     function addTicket(categoryId: string, text: string) {
         firebase.addTicket(categoryId, text);        
     }
@@ -32,5 +36,5 @@ export const useBoardStore = defineStore('board', () => {
         firebase.removeUserVote(categoryId, ticketId, authStore.userUid!)        
     }
 
-    return { categories, addCategory, addTicket, removeTicket, addCurrentUserVote, removeCurrentUserVote }
+    return { categories, addCategory, renameCategory, addTicket, removeTicket, addCurrentUserVote, removeCurrentUserVote }
 })

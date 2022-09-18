@@ -4,6 +4,7 @@ import ScruAddTicket from '../components/ScruAddTicket.vue';
 import ScruVerticalScroll from './ScruVerticalScroll.vue';
 import type { Category } from "../types";
 import TicketPartialView from "./TicketPartialView.vue";
+import CategoryName from './CategoryName.vue';
 
 const props = defineProps<{
     category: Category
@@ -20,7 +21,7 @@ function addTicket(text: string) {
 <template>
     <div class="category">
         <div class="category__header">
-            <div class="category__name">{{ category.name }}</div>
+            <CategoryName :category="category" class="category__name"/>
             <ul class="category__unused-votes">
                 <TransitionGroup name="unused-vote-transition-">
                     <li v-for="n in category.unusedCurrentUserVotes" :key="n"
@@ -88,20 +89,34 @@ function addTicket(text: string) {
     border: 1px solid var(--surface4);
     background-color: var(--surface3);
     margin-bottom: 18px;
-    padding: 6px 8px;
+    padding: 2px 8px;
     font-weight: 700;
     margin-left: 4px;
     margin-right: 4px;
     display: flex;
+    align-items: center;
+    height: 38px;
+}
+
+.category__name {
+    flex-grow: 1;
 }
 
 .category__unused-votes {
     list-style: none;
-    padding: none;
+    padding: 0;
     margin-left: auto;
     display: flex;
     flex-direction: row-reverse;
     gap: 5px;
+}
+
+.category__name-input {
+    padding: 4px 8px;
+}
+
+.category__edit-button {
+    margin-left: 6px;
 }
 
 .category__content {

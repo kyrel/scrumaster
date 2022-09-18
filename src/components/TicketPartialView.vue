@@ -126,6 +126,7 @@ function removeTicket(ticket: Ticket) {
     background-color: var(--text2);
     opacity: 0.5;
     border-radius: calc(var(--vote-point-size) / 2);
+    transition: background-color 0.25s;
 }
 
 .ticket__vote--current-yes::after {
@@ -146,9 +147,9 @@ function removeTicket(ticket: Ticket) {
     visibility: hidden;
 
     /* TODO: decide whether we need this or not */
-    @media (hover: none) {
-        visibility: visible;
-    }
+    // @media (hover: none) {
+    //     visibility: visible;
+    // }
 
     .ticket:hover & {
         visibility: visible;
