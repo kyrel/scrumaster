@@ -1,3 +1,4 @@
+@use "sass:math";
 @mixin shake($name) {
     animation: $name 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
     transform: translate3d(0, 0, 0);
@@ -7,12 +8,12 @@
     @keyframes #{$name} {
         10%,
         90% {
-            transform: translate3d(-$size / 4, 0, 0);
+            transform: translate3d(math.div($size, 4), 0, 0);
         }
 
         20%,
         80% {
-            transform: translate3d($size / 2, 0, 0);
+            transform: translate3d(math.div($size, 2), 0, 0);
         }
 
         30%,
