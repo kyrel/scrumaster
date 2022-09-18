@@ -102,6 +102,7 @@ function addTicket(text: string) {
 
 .category__name {
     flex-grow: 1;
+    min-width: 0;
 }
 
 .category__unused-votes {
@@ -111,15 +112,8 @@ function addTicket(text: string) {
     display: flex;
     flex-direction: row-reverse;
     gap: 5px;
-    flex-shrink: 0;
-}
-
-.category__name-input {
-    padding: 4px 8px;
-}
-
-.category__edit-button {
-    margin-left: 6px;
+    flex: none;
+    width: 29px;
 }
 
 .category__content {
