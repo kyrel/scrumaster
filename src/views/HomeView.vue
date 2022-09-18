@@ -26,7 +26,7 @@ function addCategory() {
         <li v-for="category of boardStore.categories" :key="category.id" class="category-list__item">
             <CategoryPartialView :category="category" />
         </li>
-        <li>
+        <li class="category-list__item">
             <button class="btn" @click="addCategory">Add category</button>
         </li>
     </ul>
