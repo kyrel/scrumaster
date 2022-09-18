@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useToasts } from '@/stores/toasts';
-import IconCross from './icons/IconCross.vue';
+// import IconCross from './icons/IconCross.vue';
 
 const toasts = useToasts();
 </script>

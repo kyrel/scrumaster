@@ -10,7 +10,7 @@ import IconCross from "./icons/IconCross.vue";
         </div>
     </div>
 </template>
-<style scoped>
+<style scoped lang="scss">
 /* @define modal-backdrop */
 .modal-backdrop {
     position: fixed;
@@ -27,7 +27,7 @@ import IconCross from "./icons/IconCross.vue";
 .modal {
     position: relative;
     background-color: var(--surface2);
-    margin: 5% auto;
+    margin: 3rem auto;
     padding: 20px;
     width: 400px;
     max-width: 90%;
@@ -40,11 +40,11 @@ import IconCross from "./icons/IconCross.vue";
     color: var(--over-backdrop1);
     width: 16px;
     display: inline-block;
-}
 
-.modal__close:hover,
-.modal__close:focus {
-    color: var(--over-backdrop2);
-    cursor: pointer;
+    &:hover,
+    &:focus {
+        color: var(--over-backdrop2);
+        cursor: pointer;
+    }
 }
 </style>
