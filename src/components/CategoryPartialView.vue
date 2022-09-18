@@ -111,6 +111,7 @@ function addTicket(text: string) {
     display: flex;
     flex-direction: row-reverse;
     gap: 5px;
+    flex-shrink: 0;
 }
 
 .category__name-input {
