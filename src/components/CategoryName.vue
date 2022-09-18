@@ -75,7 +75,7 @@ onUnmounted(() => { document.body.removeEventListener("click", clickOutside) })
 .category-name__input {
     padding: 4px 8px;
     flex-grow: 1;
-    flex-shrink: 0;
+    flex-shrink: 1;
 }
 
 .category-name__edit-button {

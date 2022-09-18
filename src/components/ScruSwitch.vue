@@ -1,4 +1,4 @@
-<script setup lang="ts">import { ref } from 'vue';
+<script setup lang="ts">import { computed, ref } from 'vue';
 
 const props = defineProps<{
     modelValue?: boolean,
@@ -6,10 +6,9 @@ const props = defineProps<{
     offTitle: string
 }>()
 const emit = defineEmits({ 'update:modelValue': null });
-const isOn = ref(!!props.modelValue)
+const isOn = computed(()=>!!props.modelValue)
 function toggleIsOn() {
-    isOn.value = !isOn.value;
-    emit('update:modelValue', isOn.value);
+    emit('update:modelValue', !isOn.value);
 }
 //TODO: also define a CampaignToggler on top of that?
 </script>
