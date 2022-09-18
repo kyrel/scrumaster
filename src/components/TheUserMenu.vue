@@ -31,7 +31,7 @@ onUnmounted(() => { document.body.removeEventListener("click", clickOutside) })
             <IconUser />
         </div>
         <div class="user-menu__dropdown" v-if="popupVisible">
-            <h3 class="user-menu__dropdown-email">{{ authStore.userEmail }}</h3>
+            <h3 class="user-menu__dropdown-email">{{ authStore.user?.email }}</h3>
             <button class="btn user-menu__sign-out-button" @click="signOut">Sign out</button>
         </div>
     </div>

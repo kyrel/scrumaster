@@ -20,7 +20,7 @@ const authStore = useAuthStore();
                 <IconScrew class="page__header-icon" />
             </h1>
             <TheThemeSwitch class="page__theme-switch" />
-            <TheUserMenu class="page__user" v-if="authStore.userUid" />
+            <TheUserMenu class="page__user" v-if="authStore.user" />
         </header>
         <RouterView />
     </main>

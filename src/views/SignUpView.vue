@@ -11,7 +11,7 @@ const latestEmail = ref("");
 const latestResult = ref(null as null | boolean);
 
 watch(() => authStore.gotInitialAuthState, () => {
-    if (authStore.userUid) router.replace("/");
+    if (authStore.user) router.replace("/");
 })
 
 watch(email, () => { emailHasError.value = false })

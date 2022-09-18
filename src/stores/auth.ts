@@ -4,24 +4,11 @@ import firebase from '@/firebaseGateway'
 import type { User } from '@/types'
 
 export const useAuthStore = defineStore('auth', () => {
-    const userUid = ref(null as null | string)
-    const userEmail = ref(null as null | string)
+    const user = ref(null as null | User);
     const gotInitialAuthState = ref(false)
 
-    function setUser(user: User | null) {
-        if (user) {
-            //console.log("user logged in")
-            userUid.value = user.uid
-            userEmail.value = user.email
-        } else {
-            //console.log("user not logged in")
-            userUid.value = null
-            userEmail.value = null
-        }
-    }
-
-    firebase.onAuthStateChanged((user) => {
-        setUser(user);
+    firebase.onAuthStateChanged((newUser) => {
+        user.value = newUser;
         if (!gotInitialAuthState.value) gotInitialAuthState.value = true
     });
 
@@ -38,15 +25,8 @@ export const useAuthStore = defineStore('auth', () => {
 
     async function signIn(email: string, link: string) {
         try {
-            console.log("signing in", email)
             const result = await firebase.signIn(email, link)
-            console.log("signed in", email)
-            window.localStorage.removeItem('emailForSignIn');// Clear email from storage.
-            // You can access the new user via result.user
-            // Additional user info profile not available via:
-            // result.additionalUserInfo.profile == null
-            // You can check if the user is new or existing:
-            // result.additionalUserInfo.isNewUser
+            window.localStorage.removeItem('emailForSignIn');// Clear email from storage.            
             return result;
         }
         catch (error) {
@@ -59,5 +39,5 @@ export const useAuthStore = defineStore('auth', () => {
         return firebase.signOut();
     }
 
-    return { userUid, userEmail, gotInitialAuthState, sendAuthLink, isAuthLink, signIn, signOut }
+    return { user, gotInitialAuthState, sendAuthLink, isAuthLink, signIn, signOut }
 })

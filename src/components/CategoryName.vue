@@ -39,7 +39,15 @@ function clickOutside(ev: MouseEvent) {
     }
 }
 
-onMounted(() => { document.body.addEventListener("click", clickOutside) })
+onMounted(async() => { 
+    document.body.addEventListener("click", clickOutside);
+    if (props.category.id == boardStore.awaitingCategoryToEditId) {
+        setTimeout(()=>{
+            startCategoryNameEdit();
+            boardStore.stopWaitingForCategoryToEdit();
+        }, 0);
+    }
+})
 
 onUnmounted(() => { document.body.removeEventListener("click", clickOutside) })
 

@@ -15,7 +15,7 @@ const storedEmail = window.localStorage.getItem('emailForSignIn')
 
 if (storedEmail) doSignIn(storedEmail); //awaiting leads to error
 
-//if (authStore.userUid) router.replace("/")
+//if (authStore.user) router.replace("/")
 </script>
 
 <template>    

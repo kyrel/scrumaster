@@ -54,6 +54,7 @@ function addCategory(name: string) {
     const categories = ref(db, "categories");
     const newCategory = push(categories);
     set(newCategory, { name });
+    return newCategory.key!
 }
 
 function renameCategory(id: string, name: string) {

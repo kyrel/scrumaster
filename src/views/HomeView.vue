@@ -10,14 +10,8 @@ const boardStore = useBoardStore();
 const router = useRouter();
 
 watchEffect(() => {
-    if (authStore.gotInitialAuthState && !authStore.userUid) router.replace("/signup")
+    if (authStore.gotInitialAuthState && !authStore.user) router.replace("/signup")
 })
-
-let categoryIndex = 1
-function addCategory() {
-    boardStore.addCategory("Category" + categoryIndex)
-    categoryIndex++
-}
 
 </script>
 
@@ -27,7 +21,7 @@ function addCategory() {
             <CategoryPartialView :category="category" />
         </li>
         <li class="category-list__item">
-            <button class="btn" @click="addCategory">Add category</button>
+            <button class="btn" @click="boardStore.addCategory()">Add category</button>
         </li>
     </ul>
 </template>
