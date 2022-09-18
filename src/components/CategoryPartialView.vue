@@ -96,6 +96,7 @@ function addTicket(text: string) {
     display: flex;
     align-items: center;
     height: 38px;
+    gap: 6px;
 }
 
 .category__name {
