@@ -1,0 +1,75 @@
+@import "./base.css";
+
+#app {
+    padding: 1rem 2rem;
+    font-weight: normal;
+    height: 100%;
+}
+
+a {
+    text-decoration: none;
+    color: hsla(160deg, 100%, 37%, 100%);
+    transition: 0.4s;
+}
+
+textarea,
+input[type="text"],
+input[type="email"] {
+    font-family: var(--font-main);
+    padding: 6px 8px;
+    border: 1px solid var(--surface4);
+}
+
+textarea:focus,
+input[type="text"]:focus,
+input[type="email"]:focus {
+    outline: 1px solid var(--surface4);
+}
+
+.btn {
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 8px 32px;
+    font-family: var(--font-main);
+    /*font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 155%;
+    text-align: center;*/
+    color: var(--text1);
+    /*text-decoration: none;*/
+    background-color: transparent;
+    border: 2px solid var(--brand);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: var(--brand);
+    color: var(--text-inverse);
+}
+
+.btn:active {
+    opacity: 0.9;
+}
+
+.btn-plain {
+    display: inline-block;
+    border: none;
+    background-color: transparent;
+    color: var(--text1);
+    cursor: pointer;
+    padding: 0;
+}
+
+@media (hover: hover) {
+    a:hover {
+        background-color: hsla(160deg, 100%, 37%, 20%);
+    }
+}
+
+@media (max-width: 480px) {
+    #app {
+        padding: 1rem;
+    }
+}
