@@ -49,16 +49,20 @@ function removeTicket(ticket: Ticket) {
 
 <template>
     <div class="ticket">
-        <i class="ticket__remove" @click="removeTicket(ticket)">
-            <IconRemove />
-        </i>
-        {{ ticket.text }}
-        <ul class="ticket__vote-zone" @click="toggleVote(ticket)">
-            <li v-for="n in ticket.otherVoteCount" :key="n" class="ticket__vote"></li>
-            <li class="ticket__vote"
-                :class="[ticket.hasCurrentUserVote ? 'ticket__vote--current-yes': 'ticket__vote--current-no', {'ticket__vote--shake': ownVoteShaking}]">
-            </li>
-        </ul>
+        <div class="ticket__content" @click="toggleVote(ticket)">
+            {{ ticket.text }}
+            <ul class="ticket__vote-zone">
+                <li v-for="n in ticket.otherVoteCount" :key="n" class="ticket__vote"></li>
+                <li class="ticket__vote"
+                    :class="[ticket.hasCurrentUserVote ? 'ticket__vote--current-yes': 'ticket__vote--current-no', {'ticket__vote--shake': ownVoteShaking}]">
+                </li>
+            </ul>
+        </div>
+        <div class="ticket__controls">
+            <i class="ticket__remove" @click="removeTicket(ticket)">
+                <IconRemove />
+            </i>
+        </div>
     </div>
 </template>
 
@@ -68,14 +72,22 @@ function removeTicket(ticket: Ticket) {
 /* @define ticket */
 .ticket {
     border: 1px solid var(--surface1);
-    padding: 6px 24px 6px 8px;
-    position: relative;
+    padding: 6px 6px 6px 12px;
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+}
+
+.ticket__content {
+    cursor: pointer;
+    flex-grow: 1;
+}
+
+.ticket__controls {
+    width: 18px;
 }
 
 .ticket__remove {
-    position: absolute;
-    top: 6px;
-    right: 6px;
     display: none;
     opacity: 0.4;
     cursor: pointer;
@@ -98,7 +110,6 @@ function removeTicket(ticket: Ticket) {
 }
 
 .ticket__vote-zone {
-    cursor: pointer;
     list-style: none;
     display: flex;
     margin: 0;
@@ -133,16 +144,22 @@ function removeTicket(ticket: Ticket) {
 
 .ticket__vote--current-no {
     visibility: hidden;
+
+    /* TODO: decide whether we need this or not */
+    @media (hover: none) {
+        visibility: visible;
+    }
+
+    .ticket:hover & {
+        visibility: visible;
+    }
 }
 
 .ticket__vote--shake {
     @include shake.shake(shake2px);
+
+    visibility: visible;
 }
 
 @include shake.shake-keyframes(shake2px, 2px);
-
-.ticket:hover .ticket__vote--current-no,
-.ticket__vote--current-no.shake {
-    visibility: visible;
-}
 </style>

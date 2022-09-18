@@ -5,7 +5,7 @@ import IconCross from "./icons/IconCross.vue";
 <template>
     <div class="modal-backdrop">
         <div class="modal">
-            <span class="modal__close" data-dismiss="modal" @click="$emit('close')"><IconCross/></span>
+            <span class="modal__close" @click="$emit('close')"><IconCross/></span>
             <slot></slot>
         </div>
     </div>
