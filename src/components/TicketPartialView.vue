@@ -56,41 +56,14 @@ function removeTicket(ticket: Ticket) {
         <ul class="ticket__vote-zone" @click="toggleVote(ticket)">
             <li v-for="n in ticket.otherVoteCount" :key="n" class="ticket__vote"></li>
             <li class="ticket__vote"
-                :class="[ticket.hasCurrentUserVote ? 'ticket__vote--current-yes': 'ticket__vote--current-no', {'shake': ownVoteShaking}]">
+                :class="[ticket.hasCurrentUserVote ? 'ticket__vote--current-yes': 'ticket__vote--current-no', {'ticket__vote--shake': ownVoteShaking}]">
             </li>
         </ul>
     </div>
 </template>
 
 <style scoped lang="scss">
-.shake {
-    animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-    transform: translate3d(0, 0, 0);
-}
-
-@keyframes shake {
-
-    10%,
-    90% {
-        transform: translate3d(-0.5px, 0, 0);
-    }
-
-    20%,
-    80% {
-        transform: translate3d(1px, 0, 0);
-    }
-
-    30%,
-    50%,
-    70% {
-        transform: translate3d(-2px, 0, 0);
-    }
-
-    40%,
-    60% {
-        transform: translate3d(2px, 0, 0);
-    }
-}
+@use "@/assets/shake";
 
 /* @define ticket */
 .ticket {
@@ -161,6 +134,12 @@ function removeTicket(ticket: Ticket) {
 .ticket__vote--current-no {
     visibility: hidden;
 }
+
+.ticket__vote--shake {
+    @include shake.shake(shake2px);
+}
+
+@include shake.shake-keyframes(shake2px, 2px);
 
 .ticket:hover .ticket__vote--current-no,
 .ticket__vote--current-no.shake {
