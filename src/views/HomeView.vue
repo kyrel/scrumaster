@@ -4,6 +4,7 @@ import { useAuthStore } from '@/stores/auth';
 import { watchEffect } from 'vue';
 import { useRouter } from 'vue-router';
 import CategoryPartialView from '../components/CategoryPartialView.vue';
+import ScruOutlineIconButton from '../components/ScruOutlineIconButton.vue';
 
 const authStore = useAuthStore();
 const boardStore = useBoardStore();
@@ -21,7 +22,15 @@ watchEffect(() => {
             <CategoryPartialView :category="category" />
         </li>
         <li class="category-list__item">
-            <button class="btn" @click="boardStore.addCategory()">Add category</button>
+            <button v-if="boardStore.categories.length == 0" class="btn" @click="boardStore.addCategory()" title="Add your first category">
+                <strong>Add your team's first category to start the fun!</strong>
+            </button>
+            <button v-else-if="boardStore.categories.length == 1" class="btn" @click="boardStore.addCategory()" title="Add another category">
+                <strong>Add another category here</strong>
+            </button>
+            <ScruOutlineIconButton v-else @click="boardStore.addCategory()" title="Add another category">
+                <strong>+</strong>
+            </ScruOutlineIconButton>            
         </li>
     </ul>
 </template>
