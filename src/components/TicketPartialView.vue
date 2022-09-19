@@ -230,13 +230,13 @@ function removeTicket(ticket: Ticket) {
         visibility: visible;
     }
 
-    @media (hover: none) {
-        visibility: visible;
-    }
+    // @media (hover: none) {
+    //     visibility: visible;
+    // }
 
-    @media (pointer: coarse) {
-        visibility: visible;
-    }
+    // @media (pointer: coarse) {
+    //     visibility: visible;
+    // }
 }
 
 @include shake.shake-keyframes(shake2px, 2px);
