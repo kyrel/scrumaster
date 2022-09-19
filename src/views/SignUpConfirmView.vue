@@ -11,11 +11,14 @@ const invalidLink = ref(false);
 const email = ref("");
 const emailHasError = ref(false);
 const requestEmailAddress = ref(false);
+const actionInProgress = ref(false);
 
 watch(email, () => { emailHasError.value = false })
 
 async function doSignIn(email: string) {
+    actionInProgress.value = true;
     const result = await authStore.signIn(email, window.location.href)
+    actionInProgress.value = false;
     if (typeof result == 'string') {
         if (result == "auth/invalid-email") invalidEmail.value = true;
         else /*if (result == "auth/invalid-action-code")*/ invalidLink.value = true;
@@ -55,7 +58,7 @@ function signUpConfirm() {
         <h2 class="sign-up-confirm__prompt">Please enter your email address again to start using the board!</h2>
         <input class="sign-up-confirm__email" :class="{'sign-up-confirm__email--error': emailHasError}" type="email"
             v-model.trim="email" placeholder="you@example.com" />
-        <button class="btn">Confirm</button>
+        <button class="btn" :disabled="actionInProgress">Confirm</button>
         <div class="sign-up-confirm__fail" v-if="invalidEmail">
             <span class="sign-up-confirm__emoji">&#128575;</span>
             Looks like <strong>{{ latestEmail }}</strong> is not the one who has been invited. Did you enter the correct email address?

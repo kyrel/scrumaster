@@ -9,6 +9,7 @@ const email = ref("");
 const emailHasError = ref(false);
 const latestEmail = ref("");
 const latestResult = ref(null as null | boolean);
+const actionInProgress = ref(false);
 
 watch(() => authStore.gotInitialAuthState, () => {
     if (authStore.user) router.replace("/");
@@ -16,7 +17,7 @@ watch(() => authStore.gotInitialAuthState, () => {
 
 watch(email, () => { emailHasError.value = false })
 
-function signUp() {
+async function signUp() {
     if (!email.value || !email.value.includes("@")) {
         emailHasError.value = true;
         return;
@@ -24,7 +25,9 @@ function signUp() {
     emailHasError.value = false;
     console.log("sending signin link");
     try {
-        authStore.sendAuthLink(email.value);
+        actionInProgress.value = true;
+        await authStore.sendAuthLink(email.value);
+        actionInProgress.value = false;
         console.log("sent signin link");
         latestEmail.value = email.value;
         latestResult.value = true;
@@ -45,7 +48,7 @@ function signUp() {
         <h2 class="sign-up__prompt">Let us send you (or your friend) an email invitation to join this board!</h2>
         <input class="sign-up__email" :class="{'sign-up__email--error': emailHasError}" type="email"
             v-model.trim="email" placeholder="you@example.com" />
-        <button class="btn">Request access</button>
+        <button class="btn" :disabled="actionInProgress">Request access</button>
         <div class="sign-up__success" v-if="latestResult === true">
             <span class="sign-up__emoji">&#129395;</span>
             Please check the inbox (or spam folder!) of <strong>{{ latestEmail }}</strong> for the invitation.<br />
