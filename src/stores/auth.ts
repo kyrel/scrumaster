@@ -29,7 +29,10 @@ export const useAuthStore = defineStore('auth', () => {
             window.localStorage.removeItem('emailForSignIn');// Clear email from storage.            
             return result;
         }
-        catch (error) {
+        catch (error: any) {
+            console.log(error.code);
+            return error.code as string;
+             //auth/invalid-action-code  //auth/invalid-email
             // Some error occurred, you can inspect the code: error.code
             // Common errors could be invalid email and invalid or expired OTPs.            
         }
