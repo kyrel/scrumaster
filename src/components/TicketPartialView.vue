@@ -49,9 +49,10 @@ function removeTicket(ticket: Ticket) {
 
 <template>
     <div class="ticket">
-        <div class="ticket__content" @click="toggleVote(ticket)">
+        <div class="ticket__content">
             {{ ticket.text }}
-            <ul class="ticket__vote-zone">
+            <ul class="ticket__vote-zone" @click="toggleVote(ticket)"
+                :title="ticket.hasCurrentUserVote? 'Click to revoke vote': 'Click to vote'">
                 <li v-for="n in ticket.otherVoteCount" :key="n" class="ticket__vote"></li>
                 <li class="ticket__vote"
                     :class="[ticket.hasCurrentUserVote ? 'ticket__vote--current-yes': 'ticket__vote--current-no', {'ticket__vote--shake': ownVoteShaking}]">
@@ -79,7 +80,6 @@ function removeTicket(ticket: Ticket) {
 }
 
 .ticket__content {
-    cursor: pointer;
     flex-grow: 1;
 }
 
@@ -114,6 +114,7 @@ function removeTicket(ticket: Ticket) {
 }
 
 .ticket__vote-zone {
+    cursor: pointer;
     list-style: none;
     display: flex;
     margin: 0;

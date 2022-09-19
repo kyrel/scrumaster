@@ -8,6 +8,7 @@ import TicketPartialView from "./TicketPartialView.vue";
 import CategoryName from './CategoryName.vue';
 import IconRemove from './icons/IconRemove.vue';
 import ScruIconButton from './ScruIconButton.vue';
+import { computed } from "vue";
 
 const props = defineProps<{
     category: Category
@@ -26,6 +27,13 @@ function removeCategory() {
     })
 }
 
+const unusedVotesTip = computed(()=>{
+    const count = props.category.unusedCurrentUserVotes;
+    if (count == 0) return 'No votes left to spend';
+    if (count == 1) return 'You can spend one more vote';
+    return `You can spend ${count} more votes`;
+})
+
 </script>
 
 <template>
@@ -33,7 +41,7 @@ function removeCategory() {
         <div class="category__header">
             <CategoryName :category="category" class="category__name"/>
             <div class="category__actions">
-                <ul class="category__unused-votes" v-if="category.tickets.length > 0">
+                <ul class="category__unused-votes" v-if="category.tickets.length > 0" :title="unusedVotesTip">
                     <TransitionGroup name="unused-vote-transition-">
                         <li v-for="n in category.unusedCurrentUserVotes" :key="n"
                             class="ticket__vote ticket__vote--current-yes"></li>

@@ -73,9 +73,6 @@ onUnmounted(() => { document.body.removeEventListener("click", clickOutside) })
 }
 
 .category-name__display {
-    flex-grow: 1;
-    flex-shrink: 1;
-    min-width: 0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
