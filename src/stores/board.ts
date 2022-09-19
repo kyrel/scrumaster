@@ -35,6 +35,10 @@ export const useBoardStore = defineStore('board', () => {
         firebase.addTicket(categoryId, text);
     }
 
+    function editTicket(categoryId: string, ticketId: string, text: string) {
+        firebase.editTicket(categoryId, ticketId, text);
+    }
+
     function removeTicket(categoryId: string, ticketId: string) {
         firebase.removeTicket(categoryId, ticketId);
     }
@@ -52,6 +56,6 @@ export const useBoardStore = defineStore('board', () => {
     return {
         categories, gotInitialState, 
         awaitingCategoryToEditId: readonly(awaitingCategoryToEditId), addCategory, stopWaitingForCategoryToEdit, 
-        renameCategory, removeCategory, addTicket, removeTicket, addCurrentUserVote, removeCurrentUserVote
+        renameCategory, removeCategory, addTicket, editTicket, removeTicket, addCurrentUserVote, removeCurrentUserVote
     };
 })

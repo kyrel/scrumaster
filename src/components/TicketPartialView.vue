@@ -2,9 +2,11 @@
 import { useBoardStore } from '@/stores/board';
 import { useScruConfirmation } from '@/stores/scruConfirmation';
 import { useToasts } from '@/stores/toasts';
-import { ref } from 'vue';
+import { nextTick, onMounted, ref } from 'vue';
 import IconRemove from '../components/icons/IconRemove.vue';
 import type { Ticket } from "../types";
+import ScruIconButton from "./ScruIconButton.vue";
+import IconPencil from "./icons/IconPencil.vue";
 
 const props = defineProps<{
     categoryId: string,
@@ -17,6 +19,38 @@ const scruConfirmation = useScruConfirmation();
 const toasts = useToasts();
 
 const ownVoteShaking = ref(false);
+
+const isEditing = ref(false);
+const editedText = ref(props.ticket.text);
+const textInput = ref(null as null | HTMLTextAreaElement)
+
+function startEdit() {
+    editedText.value = props.ticket.text;
+    isEditing.value = true;
+    nextTick(() => { textInput.value!.focus(); });
+}
+
+function cancelEdit() {
+    editedText.value = props.ticket.text;
+    isEditing.value = false;
+}
+
+function finishEdit() {
+    if (editedText.value) boardStore.editTicket(props.categoryId, props.ticket.id, editedText.value);
+    else editedText.value = props.ticket.text;
+    isEditing.value = false;
+}
+
+function clickOutside(ev: MouseEvent) {
+    if (!isEditing.value) return;
+    if (textInput.value && !(textInput.value === ev.target || textInput.value.contains(ev.target as HTMLElement))) {
+        finishEdit();
+    }
+}
+
+onMounted(async () => {
+    document.body.addEventListener("click", clickOutside);
+})
 
 function toggleVote(ticket: Ticket) {
     if (!ticket.hasCurrentUserVote) {
@@ -50,7 +84,14 @@ function removeTicket(ticket: Ticket) {
 <template>
     <div class="ticket">
         <div class="ticket__content">
-            {{ ticket.text }}
+            <template v-if="!isEditing">{{ ticket.text }}</template>
+            <ScruIconButton size="small" @click.stop="startEdit" v-if="!isEditing" class="ticket__edit-button">
+                <IconPencil />
+            </ScruIconButton>
+            <textarea class="ticket__input" v-model="editedText" v-show="isEditing" rows="4" ref="textInput"
+                @keyup.escape="cancelEdit">
+                <!-- @keyup.enter="finishEdit" -->
+            </textarea>
             <ul class="ticket__vote-zone" @click="toggleVote(ticket)"
                 :title="ticket.hasCurrentUserVote? 'Click to revoke vote': 'Click to vote'">
                 <li v-for="n in ticket.otherVoteCount" :key="n" class="ticket__vote"></li>
@@ -81,6 +122,11 @@ function removeTicket(ticket: Ticket) {
 
 .ticket__content {
     flex-grow: 1;
+}
+
+.ticket__input {
+    width: 100%;
+    resize: none;
 }
 
 .ticket__controls {
@@ -170,6 +216,23 @@ function removeTicket(ticket: Ticket) {
     @include shake.shake(shake2px);
 
     visibility: visible;
+}
+
+.ticket__edit-button {
+    margin-left: 4px;
+    visibility: hidden;
+
+    .ticket__content:hover & {
+        visibility: visible;
+    }
+
+    @media (hover: none) {
+        visibility: visible;
+    }
+
+    @media (pointer: coarse) {
+        visibility: visible;
+    }
 }
 
 @include shake.shake-keyframes(shake2px, 2px);

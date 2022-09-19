@@ -63,28 +63,33 @@ function renameCategory(id: string, name: string) {
 }
 
 function removeCategory(categoryId: string) {
-    const dbTicket = ref(db, `categories/${categoryId}`)
-    set(dbTicket, null)
+    const dbCategory = ref(db, `categories/${categoryId}`);
+    set(dbCategory, null);
 }
 
 function addTicket(categoryId: string, text: string) {
-    const categoryTickets = ref(db, `categories/${categoryId}/tickets`)
-    const newTicket = push(categoryTickets)
-    set(newTicket, { text })
+    const categoryTickets = ref(db, `categories/${categoryId}/tickets`);
+    const newTicket = push(categoryTickets);
+    set(newTicket, { text });
+}
+
+function editTicket(categoryId: string, ticketId: string, text: string) {
+    const dbTicket = ref(db, `categories/${categoryId}/tickets/${ticketId}`);
+    update(dbTicket, { text });
 }
 
 function removeTicket(categoryId: string, ticketId: string) {
-    const dbTicket = ref(db, `categories/${categoryId}/tickets/${ticketId}`)
-    set(dbTicket, null)
+    const dbTicket = ref(db, `categories/${categoryId}/tickets/${ticketId}`);
+    set(dbTicket, null);
 }
 
 function addUserVote(categoryId: string, ticketId: string, userUid: string) {
-    const userVoteRef = ref(db, `categories/${categoryId}/tickets/${ticketId}/votes/${userUid}`)
-    set(userVoteRef, true)
+    const userVoteRef = ref(db, `categories/${categoryId}/tickets/${ticketId}/votes/${userUid}`);
+    set(userVoteRef, true);
 }
 
 function removeUserVote(categoryId: string, ticketId: string, userUid: string) {
-    const userVoteRef = ref(db, `categories/${categoryId}/tickets/${ticketId}/votes/${userUid}`)
+    const userVoteRef = ref(db, `categories/${categoryId}/tickets/${ticketId}/votes/${userUid}`);
     set(userVoteRef, null)
 }
 
@@ -128,5 +133,5 @@ function onBoardChange(userUidGetter: () => string | null, callback: (board: Cat
 
 export default {
     onAuthStateChanged, sendAuthLink, isAuthLink, signIn, signOut,
-    addCategory, renameCategory, removeCategory, addTicket, removeTicket, addUserVote, removeUserVote, onBoardChange
+    addCategory, renameCategory, removeCategory, addTicket, editTicket, removeTicket, addUserVote, removeUserVote, onBoardChange
 }

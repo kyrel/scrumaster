@@ -62,6 +62,8 @@ watchEffect(() => {
     max-width: 100%;
     overflow-x: auto;
     scroll-snap-type: x proximity;
+    /*margin-left: auto;
+    margin-right: auto;*/
 }
 
 .category-list__item {
