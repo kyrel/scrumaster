@@ -88,7 +88,7 @@ function removeTicket(ticket: Ticket) {
 }
 
 .ticket__remove {
-    display: none;
+    visibility: hidden;
     opacity: 0.4;
     cursor: pointer;
 
@@ -101,15 +101,15 @@ function removeTicket(ticket: Ticket) {
     }
 
     .ticket:hover & {
-        display: inline-block;
+        visibility: visible;
     }
 
     @media (hover: none) {
-        display: inline-block;
+        visibility: visible;
     }
 
     @media (pointer: coarse) {
-        display: inline-block;
+        visibility: visible;
     }
 }
 
