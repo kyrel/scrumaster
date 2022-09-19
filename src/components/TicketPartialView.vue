@@ -41,16 +41,20 @@ function finishEdit() {
     isEditing.value = false;
 }
 
+//TODO: extract as common code
 function clickOutside(ev: MouseEvent) {
     if (!isEditing.value) return;
     if (textInput.value && !(textInput.value === ev.target || textInput.value.contains(ev.target as HTMLElement))) {
+        ev.stopPropagation();
         finishEdit();
     }
 }
 
 onMounted(async () => {
-    document.body.addEventListener("click", clickOutside);
+    document.body.addEventListener("click", clickOutside, {capture: true});
 })
+
+onMounted(() => { document.body.removeEventListener("click", clickOutside) })
 
 function toggleVote(ticket: Ticket) {
     if (!ticket.hasCurrentUserVote) {
@@ -85,7 +89,7 @@ function removeTicket(ticket: Ticket) {
     <div class="ticket">
         <div class="ticket__content">
             <template v-if="!isEditing">{{ ticket.text }}</template>
-            <ScruIconButton size="small" @click.stop="startEdit" v-if="!isEditing" class="ticket__edit-button">
+            <ScruIconButton size="small" @click="startEdit" v-if="!isEditing" class="ticket__edit-button">
                 <IconPencil />
             </ScruIconButton>
             <textarea class="ticket__input" v-model="editedText" v-show="isEditing" rows="4" ref="textInput"

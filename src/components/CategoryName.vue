@@ -35,12 +35,13 @@ function finishCategoryNameEdit() {
 function clickOutside(ev: MouseEvent) {
     if (!isEditingCategoryName.value) return;
     if (categoryNameInput.value && !(categoryNameInput.value === ev.target || categoryNameInput.value.contains(ev.target as HTMLElement))) {
+        ev.stopPropagation();
         finishCategoryNameEdit();
     }
 }
 
 onMounted(async () => {
-    document.body.addEventListener("click", clickOutside);
+    document.body.addEventListener("click", clickOutside, { capture: true });
     if (props.category.id == boardStore.awaitingCategoryToEditId) {
         setTimeout(() => {
             startCategoryNameEdit();
@@ -56,7 +57,7 @@ onUnmounted(() => { document.body.removeEventListener("click", clickOutside) })
 <template>
     <div class="category-name">
         <div class="category-name__display" v-if="!isEditingCategoryName" :title="category.name">{{ category.name }}</div>
-        <ScruIconButton @click.stop="startCategoryNameEdit" v-if="!isEditingCategoryName"
+        <ScruIconButton @click="startCategoryNameEdit" v-if="!isEditingCategoryName"
             class="category-name__edit-button">
             <IconPencil />
         </ScruIconButton>
