@@ -55,12 +55,12 @@ onUnmounted(() => { document.body.removeEventListener("click", clickOutside) })
 
 <template>
     <div class="category-name">
-        <div v-if="!isEditingCategoryName">{{ category.name }}</div>
+        <div class="category-name__display" v-if="!isEditingCategoryName" :title="category.name">{{ category.name }}</div>
         <ScruIconButton @click.stop="startCategoryNameEdit" v-if="!isEditingCategoryName"
             class="category-name__edit-button">
             <IconPencil />
         </ScruIconButton>
-        <input class="category-name__input" type="text" v-model="editedCategoryName" v-show="isEditingCategoryName"
+        <input class="category-name__input" type="text" v-model="editedCategoryName" v-show="isEditingCategoryName" maxlength="32"
             ref="categoryNameInput" @keyup.enter="finishCategoryNameEdit" @keyup.escape="cancelCategoryNameEdit">
     </div>
 </template>
@@ -70,6 +70,15 @@ onUnmounted(() => { document.body.removeEventListener("click", clickOutside) })
 .category-name {
     display: flex;
     flex-direction: row;
+}
+
+.category-name__display {
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .category-name__input {

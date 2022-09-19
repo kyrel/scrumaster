@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useAuthStore } from '@/stores/auth';
-import { ref, watch } from 'vue';
+import { ref, watch, watchEffect } from 'vue';
 import { useRouter } from 'vue-router';
 
 const authStore = useAuthStore();
@@ -11,8 +11,8 @@ const latestEmail = ref("");
 const latestResult = ref(null as null | boolean);
 const actionInProgress = ref(false);
 
-watch(() => authStore.gotInitialAuthState, () => {
-    if (authStore.user) router.replace("/");
+watchEffect(() => {
+    if (authStore.gotInitialAuthState && authStore.user) router.replace("/");
 })
 
 watch(email, () => { emailHasError.value = false })
