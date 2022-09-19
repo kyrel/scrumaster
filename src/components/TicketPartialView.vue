@@ -8,6 +8,7 @@ import type { Ticket } from "../types";
 import ScruIconButton from "./ScruIconButton.vue";
 import IconPencil from "./icons/IconPencil.vue";
 import { useClickOutside } from '@/composables/clickOutside';
+import { useAutoResetRef } from '@/composables/autoResetRef';
 
 const props = defineProps<{
     categoryId: string,
@@ -19,7 +20,7 @@ const boardStore = useBoardStore();
 const scruConfirmation = useScruConfirmation();
 const toasts = useToasts();
 
-const ownVoteShaking = ref(false);
+const ownVoteShaking = useAutoResetRef(false, 820);
 
 const isEditing = ref(false);
 const editedText = ref(props.ticket.text);
@@ -52,10 +53,7 @@ function toggleVote(ticket: Ticket) {
         }
         else {
             toasts.warning("You have no more votes to spend in this category!");
-            if (!ownVoteShaking.value) {
-                ownVoteShaking.value = true;
-                setTimeout(() => ownVoteShaking.value = false, 820);
-            }
+            ownVoteShaking.value = true;            
         }
     }
     else boardStore.removeCurrentUserVote(props.categoryId, ticket.id)
