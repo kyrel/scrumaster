@@ -2,11 +2,12 @@
 import { useBoardStore } from '@/stores/board';
 import { useScruConfirmation } from '@/stores/scruConfirmation';
 import { useToasts } from '@/stores/toasts';
-import { nextTick, onMounted, ref } from 'vue';
+import { nextTick, ref } from 'vue';
 import IconRemove from '../components/icons/IconRemove.vue';
 import type { Ticket } from "../types";
 import ScruIconButton from "./ScruIconButton.vue";
 import IconPencil from "./icons/IconPencil.vue";
+import { useClickOutside } from '@/composables/clickOutside';
 
 const props = defineProps<{
     categoryId: string,
@@ -41,20 +42,7 @@ function finishEdit() {
     isEditing.value = false;
 }
 
-//TODO: extract as common code
-function clickOutside(ev: MouseEvent) {
-    if (!isEditing.value) return;
-    if (textInput.value && !(textInput.value === ev.target || textInput.value.contains(ev.target as HTMLElement))) {
-        ev.stopPropagation();
-        finishEdit();
-    }
-}
-
-onMounted(async () => {
-    document.body.addEventListener("click", clickOutside, {capture: true});
-})
-
-onMounted(() => { document.body.removeEventListener("click", clickOutside) })
+useClickOutside(textInput, finishEdit, { precondition: () => isEditing.value })
 
 function toggleVote(ticket: Ticket) {
     if (!ticket.hasCurrentUserVote) {

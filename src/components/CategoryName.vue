@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { useBoardStore } from '@/stores/board';
 import type { Category } from "../types";
-import { nextTick, onMounted, onUnmounted, ref } from 'vue';
+import { nextTick, onMounted, ref } from 'vue';
 import IconPencil from './icons/IconPencil.vue';
 import ScruIconButton from './ScruIconButton.vue';
+import { useClickOutside } from '@/composables/clickOutside';
 
 const props = defineProps<{
     category: Category
@@ -32,16 +33,7 @@ function finishCategoryNameEdit() {
     isEditingCategoryName.value = false;
 }
 
-function clickOutside(ev: MouseEvent) {
-    if (!isEditingCategoryName.value) return;
-    if (categoryNameInput.value && !(categoryNameInput.value === ev.target || categoryNameInput.value.contains(ev.target as HTMLElement))) {
-        ev.stopPropagation();
-        finishCategoryNameEdit();
-    }
-}
-
 onMounted(async () => {
-    document.body.addEventListener("click", clickOutside, { capture: true });
     if (props.category.id == boardStore.awaitingCategoryToEditId) {
         setTimeout(() => {
             startCategoryNameEdit();
@@ -50,7 +42,7 @@ onMounted(async () => {
     }
 })
 
-onUnmounted(() => { document.body.removeEventListener("click", clickOutside) })
+useClickOutside(categoryNameInput, finishCategoryNameEdit, { precondition: () => isEditingCategoryName.value })
 
 </script>
 
