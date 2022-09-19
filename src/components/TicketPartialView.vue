@@ -143,7 +143,8 @@ function removeTicket(ticket: Ticket) {
 .ticket__vote--current-no::after {
     border-color: var(--brand);
     background-color: transparent;
-    border-width: 3px;
+    border-width: 1px;
+    border-style: dashed;
     opacity: 1;
 }
 
@@ -151,9 +152,13 @@ function removeTicket(ticket: Ticket) {
     visibility: hidden;
 
     /* TODO: decide whether we need this or not */
-    // @media (hover: none) {
-    //     visibility: visible;
-    // }
+    @media (hover: none) {
+        visibility: visible;
+    }
+
+    @media (pointer: coarse) {
+        visibility: visible;
+    }
 
     .ticket:hover & {
         visibility: visible;
