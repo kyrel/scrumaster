@@ -62,6 +62,11 @@ function renameCategory(id: string, name: string) {
     update(dbCategory, { name });
 }
 
+function removeCategory(categoryId: string) {
+    const dbTicket = ref(db, `categories/${categoryId}`)
+    set(dbTicket, null)
+}
+
 function addTicket(categoryId: string, text: string) {
     const categoryTickets = ref(db, `categories/${categoryId}/tickets`)
     const newTicket = push(categoryTickets)
@@ -123,5 +128,5 @@ function onBoardChange(userUidGetter: () => string | null, callback: (board: Cat
 
 export default {
     onAuthStateChanged, sendAuthLink, isAuthLink, signIn, signOut,
-    addCategory, renameCategory, addTicket, removeTicket, addUserVote, removeUserVote, onBoardChange
+    addCategory, renameCategory, removeCategory, addTicket, removeTicket, addUserVote, removeUserVote, onBoardChange
 }

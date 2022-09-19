@@ -1,19 +1,29 @@
 <script setup lang="ts">
+import type { Category } from "../types";
 import { useBoardStore } from '@/stores/board';
+import { useScruConfirmation } from '@/stores/scruConfirmation';
 import ScruAddTicket from '../components/ScruAddTicket.vue';
 import ScruVerticalScroll from './ScruVerticalScroll.vue';
-import type { Category } from "../types";
 import TicketPartialView from "./TicketPartialView.vue";
 import CategoryName from './CategoryName.vue';
+import IconRemove from './icons/IconRemove.vue';
+import ScruIconButton from './ScruIconButton.vue';
 
 const props = defineProps<{
     category: Category
 }>()
 
 const boardStore = useBoardStore();
+const scruConfirmation = useScruConfirmation();
 
 function addTicket(text: string) {
     boardStore.addTicket(props.category.id, text)
+}
+
+function removeCategory() {
+    scruConfirmation.open("Remove category?", () => {
+        boardStore.removeCategory(props.category.id);
+    })
 }
 
 </script>
@@ -22,12 +32,17 @@ function addTicket(text: string) {
     <div class="category">
         <div class="category__header">
             <CategoryName :category="category" class="category__name"/>
-            <ul class="category__unused-votes">
-                <TransitionGroup name="unused-vote-transition-">
-                    <li v-for="n in category.unusedCurrentUserVotes" :key="n"
-                        class="ticket__vote ticket__vote--current-yes"></li>
-                </TransitionGroup>
-            </ul>
+            <div class="category__actions">
+                <ul class="category__unused-votes" v-if="category.tickets.length > 0">
+                    <TransitionGroup name="unused-vote-transition-">
+                        <li v-for="n in category.unusedCurrentUserVotes" :key="n"
+                            class="ticket__vote ticket__vote--current-yes"></li>
+                    </TransitionGroup>
+                </ul>
+                <ScruIconButton v-else class="category__remove" @click="removeCategory">
+                    <IconRemove />
+                </ScruIconButton>
+            </div>
         </div>
         <div class="category__content">
             <ScruVerticalScroll>
@@ -105,15 +120,21 @@ function addTicket(text: string) {
     min-width: 0;
 }
 
+.category__actions {
+    margin-left: auto;
+    flex: none;
+    width: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
 .category__unused-votes {
     list-style: none;
     padding: 0;
-    margin-left: auto;
     display: flex;
     flex-direction: row-reverse;
     gap: 5px;
-    flex: none;
-    width: 29px;
 }
 
 .category__content {

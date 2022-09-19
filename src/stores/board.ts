@@ -15,7 +15,7 @@ export const useBoardStore = defineStore('board', () => {
         if (!gotInitialState.value) gotInitialState.value = true;
     })
 
-    function addCategory() {        
+    function addCategory() {
         awaitingCategoryToEditId.value = firebase.addCategory("New category");
     }
 
@@ -25,6 +25,10 @@ export const useBoardStore = defineStore('board', () => {
 
     function renameCategory(id: string, name: string) {
         firebase.renameCategory(id, name);
+    }
+
+    function removeCategory(id: string) {
+        firebase.removeCategory(id);
     }
 
     function addTicket(categoryId: string, text: string) {
@@ -45,5 +49,9 @@ export const useBoardStore = defineStore('board', () => {
         firebase.removeUserVote(categoryId, ticketId, authStore.user!.uid);
     }
 
-    return { categories, gotInitialState, awaitingCategoryToEditId: readonly(awaitingCategoryToEditId), addCategory, stopWaitingForCategoryToEdit, renameCategory, addTicket, removeTicket, addCurrentUserVote, removeCurrentUserVote };
+    return {
+        categories, gotInitialState, 
+        awaitingCategoryToEditId: readonly(awaitingCategoryToEditId), addCategory, stopWaitingForCategoryToEdit, 
+        renameCategory, removeCategory, addTicket, removeTicket, addCurrentUserVote, removeCurrentUserVote
+    };
 })
