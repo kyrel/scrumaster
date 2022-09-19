@@ -18,24 +18,40 @@ watchEffect(() => {
 
 <template>
     <ul class="category-list" v-if="boardStore.gotInitialState">
-        <li v-for="category of boardStore.categories" :key="category.id" class="category-list__item">
-            <CategoryPartialView :category="category" />
-        </li>
-        <li class="category-list__item">
-            <button v-if="boardStore.categories.length == 0" class="btn" @click="boardStore.addCategory()" title="Add your first category">
+        <TransitionGroup name="category-transition-">
+            <li v-for="category of boardStore.categories" :key="category.id" class="category-list__item">
+                <CategoryPartialView :category="category" />
+            </li>
+        </TransitionGroup>
+        <li class="category-list__item" :key="''">
+            <button v-if="boardStore.categories.length == 0" class="btn" @click="boardStore.addCategory()"
+                title="Add your first category">
                 <strong>Add your team's first category to start the fun!</strong>
             </button>
-            <button v-else-if="boardStore.categories.length == 1" class="btn" @click="boardStore.addCategory()" title="Add another category">
+            <button v-else-if="boardStore.categories.length == 1" class="btn" @click="boardStore.addCategory()"
+                title="Add another category">
                 <strong>Add another category here</strong>
             </button>
             <ScruOutlineIconButton v-else @click="boardStore.addCategory()" title="Add another category">
                 <strong>+</strong>
-            </ScruOutlineIconButton>            
+            </ScruOutlineIconButton>
         </li>
     </ul>
 </template>
 
 <style scoped lang="scss">
+/* @define category-transition */
+.category-transition--enter-active,
+.category-transition--leave-active {
+    transition: all 0.25s ease;
+}
+
+.category-transition--enter-from,
+.category-transition--leave-to {
+    opacity: 0;
+    transform: translateY(-60px);
+}
+
 /* @define category-list */
 .category-list {
     list-style: none;
