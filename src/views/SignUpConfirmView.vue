@@ -20,7 +20,12 @@ async function doSignIn(email: string) {
     const result = await authStore.signIn(email, window.location.href);
     actionInProgress.value = false;
     if (typeof result == 'string') {
-        if (result == "auth/invalid-email") invalidEmail.value = true;
+        if (result == "auth/invalid-email") {
+            // Explicitly show form since we may appear here from the automatic login path 
+            // (email is in local storage, but it's not the one that received the link)
+            requestEmailAddress.value = true; 
+            invalidEmail.value = true;
+        }
         else /*if (result == "auth/invalid-action-code")*/ invalidLink.value = true;
     }
     else router.replace("/"); 
@@ -53,10 +58,7 @@ function signUpConfirm() {
         <p>
             Did you try to use the same link to sign in again?<br>
             Unfortunately those are one-timers, and also exprire with time. 
-            Please
-            <router-link to="/signup">
-                request another one
-            </router-link>.
+            Please <router-link to="/signup">request another one</router-link>.
         </p>
     </div>
     <form v-else-if="requestEmailAddress" class="sign-up-confirm" @submit.prevent="signUpConfirm">
@@ -70,9 +72,10 @@ function signUpConfirm() {
         <button class="btn" :disabled="actionInProgress">
             Confirm
         </button>
-        <div v-if="invalidEmail" class="sign-up-confirm__fail">
+        <div v-if="invalidEmail && latestEmail" class="sign-up-confirm__fail">
             <span class="sign-up-confirm__emoji">&#128575;</span>
             Looks like <strong>{{ latestEmail }}</strong> is not the one who has been invited. Did you enter the correct email address?
+            If you feel stuck, try <router-link to="/signup">requesting another invitation</router-link>.
         </div>
     </form>
 </template>
