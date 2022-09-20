@@ -1,14 +1,14 @@
 <script setup lang="ts">
+import { nextTick, ref } from 'vue';
+import type { Ticket } from "@/types";
+import { useClickOutside } from '@/composables/clickOutside';
+import { useAutoResetRef } from '@/composables/autoResetRef';
 import { useBoardStore } from '@/stores/board';
 import { useScruConfirmation } from '@/stores/scruConfirmation';
 import { useToasts } from '@/stores/toasts';
-import { nextTick, ref } from 'vue';
-import IconRemove from '../components/icons/IconRemove.vue';
-import type { Ticket } from "../types";
-import ScruIconButton from "./ScruIconButton.vue";
+import AppIconButton from "./AppIconButton.vue";
+import IconRemove from './icons/IconRemove.vue';
 import IconPencil from "./icons/IconPencil.vue";
-import { useClickOutside } from '@/composables/clickOutside';
-import { useAutoResetRef } from '@/composables/autoResetRef';
 
 const props = defineProps<{
     categoryId: string,
@@ -75,9 +75,9 @@ function removeTicket(ticket: Ticket) {
     <div class="ticket">
         <div class="ticket__content">
             <template v-if="!isEditing">{{ ticket.text }}</template>
-            <ScruIconButton size="small" @click="startEdit" v-if="!isEditing" class="ticket__edit-button">
+            <AppIconButton size="small" @click="startEdit" v-if="!isEditing" class="ticket__edit-button">
                 <IconPencil />
-            </ScruIconButton>
+            </AppIconButton>
             <textarea class="ticket__input" v-model="editedText" v-show="isEditing" rows="4" ref="textInput"
                 @keyup.escape="cancelEdit">
                 <!-- @keyup.enter="finishEdit" -->
@@ -216,13 +216,13 @@ function removeTicket(ticket: Ticket) {
         visibility: visible;
     }
 
-    // @media (hover: none) {
-    //     visibility: visible;
-    // }
+    @media (hover: none) {
+        visibility: visible;
+    }
 
-    // @media (pointer: coarse) {
-    //     visibility: visible;
-    // }
+    @media (pointer: coarse) {
+        visibility: visible;
+    }
 }
 
 @include shake.shake-keyframes(shake2px, 2px);

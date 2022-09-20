@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ScruSwitch from '@/components/ScruSwitch.vue';
+import AppSwitch from '@/components/AppSwitch.vue';
 import IconMoon from '@/components/icons/IconMoon.vue';
 import IconSun from '@/components/icons/IconSun.vue';
 
@@ -30,14 +30,14 @@ onMounted(() => {
 </script>
 
 <template>
-    <ScruSwitch v-model="isDarkTheme" on-title="Switch to Light theme" off-title="Switch to Dark theme">
+    <AppSwitch v-model="isDarkTheme" on-title="Switch to Light theme" off-title="Switch to Dark theme">
         <template #on>
             <IconMoon class="theme-switch__icon" />
         </template>
         <template #off>
             <IconSun class="theme-switch__icon" />
         </template>
-    </ScruSwitch>
+    </AppSwitch>
 </template>
 
 <style scoped>

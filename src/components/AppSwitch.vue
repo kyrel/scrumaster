@@ -10,7 +10,6 @@ const isOn = computed(()=>!!props.modelValue)
 function toggleIsOn() {
     emit('update:modelValue', !isOn.value);
 }
-//TODO: also define a CampaignToggler on top of that?
 </script>
 
 <template>

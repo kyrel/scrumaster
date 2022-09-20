@@ -15,7 +15,7 @@ const authStore = useAuthStore();
 <template>
     <main v-if="authStore.gotInitialAuthState" class="page">
         <header class="page__header">
-            <h1>
+            <h1 class="page__title">
                 ScruMaster
                 <IconScrew class="page__header-icon" />
             </h1>
@@ -40,7 +40,12 @@ const authStore = useAuthStore();
     display: flex;
     align-items: center;
     gap: 6px;
-    margin-bottom: 12px;
+    margin-bottom: 0.67em;
+}
+
+.page__title {
+    font-size: 2em;
+    font-weight: bold;
 }
 
 .page__header-icon {

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { useBoardStore } from '@/stores/board';
-import type { Category } from "../types";
+import type { Category } from "@/types";
 import { nextTick, onMounted, ref } from 'vue';
 import IconPencil from './icons/IconPencil.vue';
-import ScruIconButton from './ScruIconButton.vue';
+import AppIconButton from './AppIconButton.vue';
 import { useClickOutside } from '@/composables/clickOutside';
 
 const props = defineProps<{
@@ -49,10 +49,10 @@ useClickOutside(categoryNameInput, finishCategoryNameEdit, { precondition: () =>
 <template>
     <div class="category-name">
         <div class="category-name__display" v-if="!isEditingCategoryName" :title="category.name">{{ category.name }}</div>
-        <ScruIconButton @click="startCategoryNameEdit" v-if="!isEditingCategoryName"
+        <AppIconButton @click="startCategoryNameEdit" v-if="!isEditingCategoryName"
             class="category-name__edit-button">
             <IconPencil />
-        </ScruIconButton>
+        </AppIconButton>
         <input class="category-name__input" type="text" v-model="editedCategoryName" v-show="isEditingCategoryName" maxlength="32"
             ref="categoryNameInput" @keyup.enter="finishCategoryNameEdit" @keyup.escape="cancelCategoryNameEdit">
     </div>

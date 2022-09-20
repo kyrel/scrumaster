@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { useBoardStore } from '@/stores/board';
-import { useAuthStore } from '@/stores/auth';
 import { watchEffect } from 'vue';
 import { useRouter } from 'vue-router';
-import CategoryPartialView from '../components/CategoryPartialView.vue';
-import ScruOutlineIconButton from '../components/ScruOutlineIconButton.vue';
+import { useBoardStore } from '@/stores/board';
+import { useAuthStore } from '@/stores/auth';
+import BoardViewCategory from '@/components/BoardViewCategory.vue';
+import AppOutlineIconButton from '@/components/AppOutlineIconButton.vue';
 
 const authStore = useAuthStore();
 const boardStore = useBoardStore();
@@ -20,7 +20,7 @@ watchEffect(() => {
     <ul class="category-list" v-if="boardStore.gotInitialState">
         <TransitionGroup name="category-transition-">
             <li v-for="category of boardStore.categories" :key="category.id" class="category-list__item">
-                <CategoryPartialView :category="category" />
+                <BoardViewCategory :category="category" />
             </li>
         </TransitionGroup>
         <li class="category-list__item" :key="''">
@@ -32,9 +32,9 @@ watchEffect(() => {
                 title="Add another category">
                 <strong>Add another category here</strong>
             </button>
-            <ScruOutlineIconButton v-else @click="boardStore.addCategory()" title="Add another category">
+            <AppOutlineIconButton v-else @click="boardStore.addCategory()" title="Add another category">
                 <strong>+</strong>
-            </ScruOutlineIconButton>
+            </AppOutlineIconButton>
         </li>
     </ul>
 </template>

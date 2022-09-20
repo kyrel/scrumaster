@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import type { Category } from "../types";
+import type { Category } from "@/types";
 import { useBoardStore } from '@/stores/board';
 import { useScruConfirmation } from '@/stores/scruConfirmation';
-import ScruAddTicket from '../components/ScruAddTicket.vue';
-import ScruVerticalScroll from './ScruVerticalScroll.vue';
-import TicketPartialView from "./TicketPartialView.vue";
-import CategoryName from './CategoryName.vue';
+import ScruAddTicket from './ScruAddTicket.vue';
+import AppVerticalScroll from './AppVerticalScroll.vue';
+import BoardViewCategoryTicket from "./BoardViewCategoryTicket.vue";
+import BoardViewCategoryName from './BoardViewCategoryName.vue';
 import IconRemove from './icons/IconRemove.vue';
-import ScruIconButton from './ScruIconButton.vue';
+import AppIconButton from './AppIconButton.vue';
 import { computed } from "vue";
 
 const props = defineProps<{
@@ -39,7 +39,7 @@ const unusedVotesTip = computed(()=>{
 <template>
     <div class="category">
         <div class="category__header">
-            <CategoryName :category="category" class="category__name"/>
+            <BoardViewCategoryName :category="category" class="category__name"/>
             <div class="category__actions">
                 <ul class="category__unused-votes" v-if="category.tickets.length > 0" :title="unusedVotesTip">
                     <TransitionGroup name="unused-vote-transition-">
@@ -47,23 +47,23 @@ const unusedVotesTip = computed(()=>{
                             class="ticket__vote ticket__vote--current-yes"></li>
                     </TransitionGroup>
                 </ul>
-                <ScruIconButton v-else class="category__remove" @click="removeCategory">
+                <AppIconButton v-else class="category__remove" @click="removeCategory">
                     <IconRemove />
-                </ScruIconButton>
+                </AppIconButton>
             </div>
         </div>
         <div class="category__content">
-            <ScruVerticalScroll>
+            <AppVerticalScroll>
                 <ul class="category__tickets ticket-list">
                     <TransitionGroup name="ticket-transition-">
                         <li v-for="ticket of category.tickets" :key="ticket.id" class="ticket-list__item">
-                            <TicketPartialView :category-id="category.id"
+                            <BoardViewCategoryTicket :category-id="category.id"
                                 :can-add-vote="category.unusedCurrentUserVotes > 0" :ticket="ticket" />
                         </li>
                     </TransitionGroup>
                 </ul>
                 <ScruAddTicket class="category__add-ticket" @add="(text)=>addTicket(text)" />
-            </ScruVerticalScroll>
+            </AppVerticalScroll>
         </div>
     </div>
 </template>
