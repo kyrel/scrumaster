@@ -52,7 +52,7 @@ function toggleVote() {
             boardStore.addCurrentUserVote(props.categoryId, props.ticket.id);
         }
         else {
-            toasts.error("You have no more votes to spend in this category!");
+            toasts.show("You have no more votes to spend in this category!");
             ownVoteShaking.value = true;            
         }
     }
@@ -61,7 +61,7 @@ function toggleVote() {
 
 function removeTicket() {
     if (props.ticket.hasCurrentUserVote || props.ticket.otherVoteCount > 0) {
-        toasts.error("Cannot delete ticket with votes");
+        toasts.show("Cannot delete ticket with votes");
         return;
     }
     confirmation.open("Remove ticket?", () => {

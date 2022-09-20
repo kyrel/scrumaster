@@ -24,7 +24,12 @@ export const useToasts = defineStore("toasts", {
             setTimeout(() => { this.remove(toast); }, 3000);
         },
 
-        success(message: string) {
+        show(message: string) {
+            this.notify(message, "none");
+        },
+
+        // Maybe we'll need that later
+        /*success(message: string) {
             this.notify(message, "success");
         },
 
@@ -38,7 +43,7 @@ export const useToasts = defineStore("toasts", {
 
         info(message: string) {
             this.notify(message, "info");
-        },
+        },*/
 
         remove(toast: Toast) {
             const index = this.items.indexOf(toast);
