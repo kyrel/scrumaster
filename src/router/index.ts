@@ -1,7 +1,7 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import BoardView from '@/views/BoardView.vue'
-import SignUpView from '@/views/SignUpView.vue'
-import SignUpConfirmView from '@/views/SignUpConfirmView.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import BoardView from '@/views/BoardView.vue';
+import SignUpView from '@/views/SignUpView.vue';
+import SignUpConfirmView from '@/views/SignUpConfirmView.vue';
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,6 +10,6 @@ const router = createRouter({
         { path: '/signup', name: 'signup', component: SignUpView },
         { path: '/signupconfirm', name: 'signupconfirm', component: SignUpConfirmView }        
     ]
-})
+});
 
-export default router
+export default router;

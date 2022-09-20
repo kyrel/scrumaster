@@ -4,7 +4,7 @@
 <template>
     <button type="button" class="icon-button">
         <div :class="{'icon-button__icon-wrapper': size == 'normal', 'icon-button__icon-wrapper--small': size == 'small'}">
-            <slot></slot>
+            <slot />
         </div>
     </button>
 </template>

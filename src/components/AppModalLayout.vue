@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import IconCross from "./icons/IconCross.vue";
-    defineEmits({"close": null})
+defineEmits({ "close": null });
 </script>
 <template>
     <div class="modal-backdrop">
         <div class="modal">
-            <span class="modal__close" @click="$emit('close')"><IconCross/></span>
-            <slot></slot>
+            <span class="modal__close" @click="$emit('close')">
+                <IconCross />
+            </span>
+            <slot />
         </div>
     </div>
 </template>

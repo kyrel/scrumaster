@@ -13,19 +13,19 @@ function getPrefersDark() {
 const isDarkTheme = ref(getPrefersDark());
 
 if (localStorage.getItem("prefers-dark"))
-    document.firstElementChild!.setAttribute('color-scheme', localStorage.getItem("prefers-dark") === "true" ? "dark" : "light")
+    document.firstElementChild!.setAttribute('color-scheme', localStorage.getItem("prefers-dark") === "true" ? "dark" : "light");
 
 watch(isDarkTheme, (isDark) => {
-    localStorage.setItem("prefers-dark", isDark.toString())
-    document.firstElementChild!.setAttribute('color-scheme', isDark ? "dark" : "light")
-})
+    localStorage.setItem("prefers-dark", isDark.toString());
+    document.firstElementChild!.setAttribute('color-scheme', isDark ? "dark" : "light");
+});
 
 onMounted(() => {
     window.matchMedia('(prefers-color-scheme: dark)')
         .addEventListener('change', ({ matches: isDark }) => {
-            isDarkTheme.value = isDark
-        })
-})
+            isDarkTheme.value = isDark;
+        });
+});
 
 </script>
 

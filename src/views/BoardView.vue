@@ -11,28 +11,32 @@ const boardStore = useBoardStore();
 const router = useRouter();
 
 watchEffect(() => {
-    if (authStore.gotInitialAuthState && !authStore.user) router.replace("/signup")
-})
+    if (authStore.gotInitialAuthState && !authStore.user) router.replace("/signup");
+});
 
 </script>
 
 <template>
-    <ul class="category-list" v-if="boardStore.gotInitialState">
+    <ul v-if="boardStore.gotInitialState" class="category-list">
         <TransitionGroup name="category-transition-">
             <li v-for="category of boardStore.categories" :key="category.id" class="category-list__item">
                 <BoardViewCategory :category="category" />
             </li>
         </TransitionGroup>
-        <li class="category-list__item" :key="''">
-            <button v-if="boardStore.categories.length == 0" class="btn" @click="boardStore.addCategory()"
-                title="Add your first category">
+        <li :key="''" class="category-list__item">
+            <button
+                v-if="boardStore.categories.length == 0" class="btn" title="Add your first category"
+                @click="boardStore.addCategory()"
+            >
                 <strong>Add your team's first category to start the fun!</strong>
             </button>
-            <button v-else-if="boardStore.categories.length == 1" class="btn" @click="boardStore.addCategory()"
-                title="Add another category">
+            <button
+                v-else-if="boardStore.categories.length == 1" class="btn" title="Add another category"
+                @click="boardStore.addCategory()"                
+            >
                 <strong>Add another category here</strong>
             </button>
-            <AppOutlineIconButton v-else @click="boardStore.addCategory()" title="Add another category">
+            <AppOutlineIconButton v-else title="Add another category" @click="boardStore.addCategory()">
                 <strong>+</strong>
             </AppOutlineIconButton>
         </li>

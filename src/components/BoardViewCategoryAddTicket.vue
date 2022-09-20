@@ -1,28 +1,31 @@
 <script setup lang="ts">import { ref, watch } from 'vue';
 
-const emit = defineEmits({ "add": null })
+const emit = defineEmits({ "add": null });
 
 const text = ref("");
 const textHasError = ref(false);
 
-watch(text, () => { textHasError.value = false })
+watch(text, () => { textHasError.value = false; });
 
 function tryAdd() {
     if (!text.value) {
-        textHasError.value = true
-        return
+        textHasError.value = true;
+        return;
     }
-    textHasError.value = false
-    emit("add", text.value)
-    text.value = ""
+    textHasError.value = false;
+    emit("add", text.value);
+    text.value = "";
 }
 </script>
 <template>
     <form class="add-ticket" @submit.prevent="tryAdd">
-        <textarea class="add-ticket__input" :class="{'add-ticket__input--error': textHasError}" v-model.trim="text"
-            placeholder="Type text for the new ticket here..." rows="4">
-        </textarea>
-        <button class="btn add-ticket__button">Add ticket</button>
+        <textarea
+            v-model.trim="text" class="add-ticket__input" :class="{'add-ticket__input--error': textHasError}" 
+            placeholder="Type text for the new ticket here..." rows="4"
+        />        
+        <button class="btn add-ticket__button">
+            Add ticket
+        </button>
     </form>
 </template>
 <style scoped>

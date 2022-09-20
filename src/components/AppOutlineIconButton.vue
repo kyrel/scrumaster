@@ -1,7 +1,7 @@
 <template>
     <button type="button" class="btn outline-icon-button">
         <div class="icon-button__icon-wrapper">
-            <slot></slot>
+            <slot />
         </div>
     </button>
 </template>

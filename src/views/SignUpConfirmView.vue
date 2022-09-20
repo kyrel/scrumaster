@@ -13,21 +13,21 @@ const emailHasError = ref(false);
 const requestEmailAddress = ref(false);
 const actionInProgress = ref(false);
 
-watch(email, () => { emailHasError.value = false })
+watch(email, () => { emailHasError.value = false; });
 
 async function doSignIn(email: string) {
     actionInProgress.value = true;
-    const result = await authStore.signIn(email, window.location.href)
+    const result = await authStore.signIn(email, window.location.href);
     actionInProgress.value = false;
     if (typeof result == 'string') {
         if (result == "auth/invalid-email") invalidEmail.value = true;
         else /*if (result == "auth/invalid-action-code")*/ invalidLink.value = true;
     }
-    else router.replace("/")    
+    else router.replace("/"); 
 }
 
-if (!authStore.isAuthLink(window.location.href)) router.replace("/")
-const storedEmail = window.localStorage.getItem('emailForSignIn')
+if (!authStore.isAuthLink(window.location.href)) router.replace("/");
+const storedEmail = window.localStorage.getItem('emailForSignIn');
 
 if (storedEmail) doSignIn(storedEmail); //awaiting leads to error
 else requestEmailAddress.value = true;
@@ -46,20 +46,31 @@ function signUpConfirm() {
 </script>
 
 <template>
-    <div class="error-notification" v-if="invalidLink">
-        <h2 class="error-notification__header">Something went wrong!</h2>
+    <div v-if="invalidLink" class="error-notification">
+        <h2 class="error-notification__header">
+            Something went wrong!
+        </h2>
         <p>
             Did you try to use the same link to sign in again?<br>
             Unfortunately those are one-timers, and also exprire with time. 
-            Please <router-link to="/signup">request another one</router-link>.
+            Please
+            <router-link to="/signup">
+                request another one
+            </router-link>.
         </p>
     </div>
-    <form @submit.prevent="signUpConfirm" class="sign-up-confirm" v-else-if="requestEmailAddress">
-        <h2 class="sign-up-confirm__prompt">Please enter your email address again to start using the board!</h2>
-        <input class="sign-up-confirm__email" :class="{'sign-up-confirm__email--error': emailHasError}" type="email"
-            v-model.trim="email" placeholder="you@example.com" />
-        <button class="btn" :disabled="actionInProgress">Confirm</button>
-        <div class="sign-up-confirm__fail" v-if="invalidEmail">
+    <form v-else-if="requestEmailAddress" class="sign-up-confirm" @submit.prevent="signUpConfirm">
+        <h2 class="sign-up-confirm__prompt">
+            Please enter your email address again to start using the board!
+        </h2>
+        <input
+            v-model.trim="email" class="sign-up-confirm__email" :class="{'sign-up-confirm__email--error': emailHasError}"
+            type="email" placeholder="you@example.com"
+        >
+        <button class="btn" :disabled="actionInProgress">
+            Confirm
+        </button>
+        <div v-if="invalidEmail" class="sign-up-confirm__fail">
             <span class="sign-up-confirm__emoji">&#128575;</span>
             Looks like <strong>{{ latestEmail }}</strong> is not the one who has been invited. Did you enter the correct email address?
         </div>

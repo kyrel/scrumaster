@@ -1,7 +1,7 @@
-import { ref } from 'vue'
-import { defineStore } from 'pinia'
-import firebase from '@/firebaseGateway'
-import type { User } from '@/types'
+import { ref } from 'vue';
+import { defineStore } from 'pinia';
+import firebase from '@/firebaseGateway';
+import type { User } from '@/types';
 
 export const useAuthStore = defineStore('auth', () => {
     const user = ref(null as null | User);
@@ -20,12 +20,12 @@ export const useAuthStore = defineStore('auth', () => {
     }
 
     function isAuthLink(link: string) {
-        return firebase.isAuthLink(link)
+        return firebase.isAuthLink(link);
     }
 
     async function signIn(email: string, link: string) {
         try {
-            const result = await firebase.signIn(email, link)
+            const result = await firebase.signIn(email, link);
             window.localStorage.removeItem('emailForSignIn');// Clear email from storage.            
             return result;
         }
@@ -42,5 +42,5 @@ export const useAuthStore = defineStore('auth', () => {
         return firebase.signOut();
     }
 
-    return { user, gotInitialAuthState, sendAuthLink, isAuthLink, signIn, signOut }
-})
+    return { user, gotInitialAuthState, sendAuthLink, isAuthLink, signIn, signOut };
+});

@@ -8,13 +8,13 @@ import { useClickOutside } from '@/composables/clickOutside';
 
 const props = defineProps<{
     category: Category
-}>()
+}>();
 
 const boardStore = useBoardStore();
 
 const isEditingCategoryName = ref(false);
 const editedCategoryName = ref(props.category.name);
-const categoryNameInput = ref(null as null | HTMLInputElement)
+const categoryNameInput = ref(null as null | HTMLInputElement);
 
 function startCategoryNameEdit() {
     editedCategoryName.value = props.category.name;
@@ -40,21 +40,25 @@ onMounted(async () => {
             boardStore.stopWaitingForCategoryToEdit();
         }, 0);
     }
-})
+});
 
-useClickOutside(categoryNameInput, finishCategoryNameEdit, { precondition: () => isEditingCategoryName.value })
+useClickOutside(categoryNameInput, finishCategoryNameEdit, { precondition: () => isEditingCategoryName.value });
 
 </script>
 
 <template>
     <div class="category-name">
-        <div class="category-name__display" v-if="!isEditingCategoryName" :title="category.name">{{ category.name }}</div>
-        <AppIconButton @click="startCategoryNameEdit" v-if="!isEditingCategoryName"
-            class="category-name__edit-button">
+        <div v-if="!isEditingCategoryName" class="category-name__display" :title="category.name">
+            {{ category.name }}
+        </div>
+        <AppIconButton v-if="!isEditingCategoryName" class="category-name__edit-button" @click="startCategoryNameEdit">
             <IconPencil />
         </AppIconButton>
-        <input class="category-name__input" type="text" v-model="editedCategoryName" v-show="isEditingCategoryName" maxlength="32"
-            ref="categoryNameInput" @keyup.enter="finishCategoryNameEdit" @keyup.escape="cancelCategoryNameEdit">
+        <input
+            v-show="isEditingCategoryName" ref="categoryNameInput" v-model="editedCategoryName"
+            class="category-name__input" type="text" maxlength="32"
+            @keyup.enter="finishCategoryNameEdit" @keyup.escape="cancelCategoryNameEdit"
+        >
     </div>
 </template>
 

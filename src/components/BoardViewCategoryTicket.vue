@@ -14,7 +14,7 @@ const props = defineProps<{
     categoryId: string,
     canAddVote: boolean,
     ticket: Ticket
-}>()
+}>();
 
 const boardStore = useBoardStore();
 const confirmation = useConfirmation();
@@ -24,7 +24,7 @@ const ownVoteShaking = useAutoResetRef(false, 820);
 
 const isEditing = ref(false);
 const editedText = ref(props.ticket.text);
-const textInput = ref(null as null | HTMLTextAreaElement)
+const textInput = ref(null as null | HTMLTextAreaElement);
 
 function startEdit() {
     editedText.value = props.ticket.text;
@@ -43,20 +43,20 @@ function finishEdit() {
     isEditing.value = false;
 }
 
-useClickOutside(textInput, finishEdit, { precondition: () => isEditing.value })
+useClickOutside(textInput, finishEdit, { precondition: () => isEditing.value });
 
 function toggleVote(ticket: Ticket) {
     if (!ticket.hasCurrentUserVote) {
         if (props.canAddVote) {
             //TODO: some guard on DB side?
-            boardStore.addCurrentUserVote(props.categoryId, ticket.id)
+            boardStore.addCurrentUserVote(props.categoryId, ticket.id);
         }
         else {
             toasts.warning("You have no more votes to spend in this category!");
             ownVoteShaking.value = true;            
         }
     }
-    else boardStore.removeCurrentUserVote(props.categoryId, ticket.id)
+    else boardStore.removeCurrentUserVote(props.categoryId, ticket.id);
 }
 
 function removeTicket(ticket: Ticket) {
@@ -66,7 +66,7 @@ function removeTicket(ticket: Ticket) {
     }
     confirmation.open("Remove ticket?", () => {
         boardStore.removeTicket(props.categoryId, ticket.id);
-    })
+    });
 }
 
 </script>
@@ -74,20 +74,27 @@ function removeTicket(ticket: Ticket) {
 <template>
     <div class="ticket">
         <div class="ticket__content">
-            <template v-if="!isEditing">{{ ticket.text }}</template>
-            <AppIconButton size="small" @click="startEdit" v-if="!isEditing" class="ticket__edit-button">
+            <template v-if="!isEditing">
+                {{ ticket.text }}
+            </template>
+            <AppIconButton v-if="!isEditing" class="ticket__edit-button" size="small" @click="startEdit">
                 <IconPencil />
             </AppIconButton>
-            <textarea class="ticket__input" v-model="editedText" v-show="isEditing" rows="4" ref="textInput"
-                @keyup.escape="cancelEdit">
+            <textarea 
+                v-show="isEditing" ref="textInput" v-model="editedText" class="ticket__input" 
+                rows="4" @keyup.escape="cancelEdit"
+            >
                 <!-- @keyup.enter="finishEdit" -->
             </textarea>
-            <ul class="ticket__vote-zone" @click="toggleVote(ticket)"
-                :title="ticket.hasCurrentUserVote? 'Click to revoke vote': 'Click to vote'">
-                <li v-for="n in ticket.otherVoteCount" :key="n" class="ticket__vote"></li>
-                <li class="ticket__vote"
-                    :class="[ticket.hasCurrentUserVote ? 'ticket__vote--current-yes': 'ticket__vote--current-no', {'ticket__vote--shake': ownVoteShaking}]">
-                </li>
+            <ul
+                class="ticket__vote-zone" :title="ticket.hasCurrentUserVote? 'Click to revoke vote': 'Click to vote'" 
+                @click="toggleVote(ticket)"
+            >
+                <li v-for="n in ticket.otherVoteCount" :key="n" class="ticket__vote" />
+                <li
+                    class="ticket__vote"
+                    :class="[ticket.hasCurrentUserVote ? 'ticket__vote--current-yes': 'ticket__vote--current-no', {'ticket__vote--shake': ownVoteShaking}]" 
+                />                
             </ul>
         </div>
         <div class="ticket__controls">

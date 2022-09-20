@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
 export const useConfirmation = defineStore('confirmation', () => {
@@ -12,10 +12,10 @@ export const useConfirmation = defineStore('confirmation', () => {
     
 
     function open(msg: string, cb: () => void, options?: { cancelCallback?: () => void, confirmButtonText?: string, cancelButtonText?: string }) {
-        message.value = msg
-        opened.value = true
-        callback = cb
-        cancelCallback = options?.cancelCallback
+        message.value = msg;
+        opened.value = true;
+        callback = cb;
+        cancelCallback = options?.cancelCallback;
         confirmButtonText.value = options?.confirmButtonText || "Yes";
         cancelButtonText.value = options?.cancelButtonText || "No";
     }
@@ -31,4 +31,4 @@ export const useConfirmation = defineStore('confirmation', () => {
     }
 
     return { opened, message, confirmButtonText, cancelButtonText, open, confirmClicked, cancelClicked };
-})
+});

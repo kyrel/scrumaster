@@ -12,19 +12,19 @@ import { computed } from "vue";
 
 const props = defineProps<{
     category: Category
-}>()
+}>();
 
 const boardStore = useBoardStore();
 const confirmation = useConfirmation();
 
 function addTicket(text: string) {
-    boardStore.addTicket(props.category.id, text)
+    boardStore.addTicket(props.category.id, text);
 }
 
 function removeCategory() {
     confirmation.open("Remove category?", () => {
         boardStore.removeCategory(props.category.id);
-    })
+    });
 }
 
 const unusedVotesTip = computed(()=>{
@@ -32,19 +32,18 @@ const unusedVotesTip = computed(()=>{
     if (count == 0) return 'No votes left to spend';
     if (count == 1) return 'You can spend one more vote';
     return `You can spend ${count} more votes`;
-})
+});
 
 </script>
 
 <template>
     <div class="category">
         <div class="category__header">
-            <BoardViewCategoryName :category="category" class="category__name"/>
+            <BoardViewCategoryName :category="category" class="category__name" />
             <div class="category__actions">
-                <ul class="category__unused-votes" v-if="category.tickets.length > 0" :title="unusedVotesTip">
+                <ul v-if="category.tickets.length > 0" class="category__unused-votes" :title="unusedVotesTip">
                     <TransitionGroup name="unused-vote-transition-">
-                        <li v-for="n in category.unusedCurrentUserVotes" :key="n"
-                            class="ticket__vote ticket__vote--current-yes"></li>
+                        <li v-for="n in category.unusedCurrentUserVotes" :key="n" class="ticket__vote ticket__vote--current-yes" />
                     </TransitionGroup>
                 </ul>
                 <AppIconButton v-else class="category__remove" @click="removeCategory">
@@ -57,8 +56,9 @@ const unusedVotesTip = computed(()=>{
                 <ul class="category__tickets ticket-list">
                     <TransitionGroup name="ticket-transition-">
                         <li v-for="ticket of category.tickets" :key="ticket.id" class="ticket-list__item">
-                            <BoardViewCategoryTicket :category-id="category.id"
-                                :can-add-vote="category.unusedCurrentUserVotes > 0" :ticket="ticket" />
+                            <BoardViewCategoryTicket
+                                :category-id="category.id" :can-add-vote="category.unusedCurrentUserVotes > 0" :ticket="ticket"
+                            />
                         </li>
                     </TransitionGroup>
                 </ul>

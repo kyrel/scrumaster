@@ -1,12 +1,14 @@
-<script setup lang="ts">import { computed, ref } from 'vue';
+<script setup lang="ts">
+
+import { computed } from 'vue';
 
 const props = defineProps<{
     modelValue?: boolean,
     onTitle: string,
     offTitle: string
-}>()
+}>();
 const emit = defineEmits({ 'update:modelValue': null });
-const isOn = computed(()=>!!props.modelValue)
+const isOn = computed(()=>!!props.modelValue);
 function toggleIsOn() {
     emit('update:modelValue', !isOn.value);
 }
@@ -15,13 +17,13 @@ function toggleIsOn() {
 <template>
     <button class="toggler" :class="{ 'toggler--on': isOn }" :title="isOn ? onTitle : offTitle" @click="toggleIsOn">
         <span class="toggler__btn">
-            <slot name="on" v-if="isOn"></slot>
-            <slot name="off" v-if="!isOn"></slot>
+            <slot v-if="isOn" name="on" />
+            <slot v-if="!isOn" name="off" />
         </span>
     </button>
 </template>
 
-<style scoped >
+<style scoped>
 /* @define toggler */
 .toggler {
     display: flex;

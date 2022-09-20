@@ -3,12 +3,12 @@
 import SimpleBar from 'simplebar';
 import 'simplebar/dist/simplebar.min.css';
 
-const vSimpleBar = { mounted: (el: HTMLElement) => new SimpleBar(el) }
+const vSimpleBar = { mounted: (el: HTMLElement) => new SimpleBar(el) };
 
 </script>
 <template>
-    <div class="scru-vertical-scroller" v-simple-bar>
-        <slot></slot>
+    <div v-simple-bar class="scru-vertical-scroller">
+        <slot />
     </div>
 </template>
 <style scoped>

@@ -22,5 +22,5 @@ export function useClickOutside(el: Ref<HTMLElement | null> | HTMLElement | null
 
     onMounted(() => { document.body.addEventListener("click", clickOutside, { capture: true }); });
 
-    onUnmounted(() => { document.body.removeEventListener("click", clickOutside) });
+    onUnmounted(() => { document.body.removeEventListener("click", clickOutside); });
 }

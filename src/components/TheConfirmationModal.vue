@@ -4,7 +4,7 @@ import AppModalLayout from './AppModalLayout.vue';
 const confirmation = useConfirmation();
 </script>
 <template>
-    <AppModalLayout class="confirm-modal" @close="confirmation.opened = false" v-if="confirmation.opened">
+    <AppModalLayout v-if="confirmation.opened" class="confirm-modal" @close="confirmation.opened = false">
         <h3 class="confirm-modal__header">            
             {{ confirmation.message }}            
         </h3>

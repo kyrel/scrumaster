@@ -9,9 +9,9 @@ function signOut() {
     authStore.signOut();
 }
 
-const popupVisible = ref(false)
+const popupVisible = ref(false);
 
-const el = ref(null as null | HTMLElement)
+const el = ref(null as null | HTMLElement);
 
 function clickOutside(ev: MouseEvent) {
     if (el.value && !(el.value === ev.target || el.value.contains(ev.target as HTMLElement))) {
@@ -19,20 +19,24 @@ function clickOutside(ev: MouseEvent) {
     }
 }
 
-onMounted(() => { document.body.addEventListener("click", clickOutside) })
+onMounted(() => { document.body.addEventListener("click", clickOutside); });
 
-onUnmounted(() => { document.body.removeEventListener("click", clickOutside) })
+onUnmounted(() => { document.body.removeEventListener("click", clickOutside); });
 
 </script>
 
 <template>
-    <div class="user-menu" ref="el">
+    <div ref="el" class="user-menu">
         <div class="user-menu__avatar" @click="popupVisible = !popupVisible">
             <IconUser />
         </div>
-        <div class="user-menu__dropdown" v-if="popupVisible">
-            <h3 class="user-menu__dropdown-email">{{ authStore.user?.email }}</h3>
-            <button class="btn user-menu__sign-out-button" @click="signOut">Sign out</button>
+        <div v-if="popupVisible" class="user-menu__dropdown">
+            <h3 class="user-menu__dropdown-email">
+                {{ authStore.user?.email }}
+            </h3>
+            <button class="btn user-menu__sign-out-button" @click="signOut">
+                Sign out
+            </button>
         </div>
     </div>
 </template>

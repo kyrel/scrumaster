@@ -21,7 +21,7 @@ const auth = getAuth();
 
 function onAuthStateChanged(callback: (user: User | null) => void) {
     fireOnAuthStateChanged(auth, (user) => {
-        callback(user ? { uid: user.uid, email: user.email } : null)
+        callback(user ? { uid: user.uid, email: user.email } : null);
     });
 }
 
@@ -54,7 +54,7 @@ function addCategory(name: string) {
     const categories = ref(db, "categories");
     const newCategory = push(categories);
     set(newCategory, { name });
-    return newCategory.key!
+    return newCategory.key!;
 }
 
 function renameCategory(id: string, name: string) {
@@ -90,7 +90,7 @@ function addUserVote(categoryId: string, ticketId: string, userUid: string) {
 
 function removeUserVote(categoryId: string, ticketId: string, userUid: string) {
     const userVoteRef = ref(db, `categories/${categoryId}/tickets/${ticketId}/votes/${userUid}`);
-    set(userVoteRef, null)
+    set(userVoteRef, null);
 }
 
 function onBoardChange(userUidGetter: () => string | null, callback: (board: Category[]) => void) {
@@ -114,9 +114,9 @@ function onBoardChange(userUidGetter: () => string | null, callback: (board: Cat
                         currentUserVotes++;
                     }
                     else ticket.otherVoteCount++;
-                })
+                });
                 tickets.push(ticket);
-            })
+            });
 
             const categoryVal = dbCategory.val();
             const category: Category = {
@@ -128,10 +128,10 @@ function onBoardChange(userUidGetter: () => string | null, callback: (board: Cat
             board.push(category);
         });
         callback(board);
-    })
+    });
 }
 
 export default {
     onAuthStateChanged, sendAuthLink, isAuthLink, signIn, signOut,
     addCategory, renameCategory, removeCategory, addTicket, editTicket, removeTicket, addUserVote, removeUserVote, onBoardChange
-}
+};

@@ -13,9 +13,9 @@ const actionInProgress = ref(false);
 
 watchEffect(() => {
     if (authStore.gotInitialAuthState && authStore.user) router.replace("/");
-})
+});
 
-watch(email, () => { emailHasError.value = false })
+watch(email, () => { emailHasError.value = false; });
 
 async function signUp() {
     if (!email.value || !email.value.includes("@")) {
@@ -44,17 +44,23 @@ async function signUp() {
 </script>
 
 <template>
-    <form @submit.prevent="signUp" class="sign-up">
-        <h2 class="sign-up__prompt">Let us send you (or your friend) an email invitation to join this board!</h2>
-        <input class="sign-up__email" :class="{'sign-up__email--error': emailHasError}" type="email"
-            v-model.trim="email" placeholder="you@example.com" />
-        <button class="btn" :disabled="actionInProgress">Request access</button>
-        <div class="sign-up__success" v-if="latestResult === true">
+    <form class="sign-up" @submit.prevent="signUp">
+        <h2 class="sign-up__prompt">
+            Let us send you (or your friend) an email invitation to join this board!
+        </h2>
+        <input 
+            v-model.trim="email" class="sign-up__email" :class="{'sign-up__email--error': emailHasError}"
+            type="email" placeholder="you@example.com"
+        >
+        <button class="btn" :disabled="actionInProgress">
+            Request access
+        </button>
+        <div v-if="latestResult === true" class="sign-up__success">
             <span class="sign-up__emoji">&#129395;</span>
-            Please check the inbox (or spam folder!) of <strong>{{ latestEmail }}</strong> for the invitation.<br />
+            Please check the inbox (or spam folder!) of <strong>{{ latestEmail }}</strong> for the invitation.<br>
             Feel free to use the form again with another email address!
         </div>
-        <div class="sign-up__fail" v-if="latestResult === false">
+        <div v-if="latestResult === false" class="sign-up__fail">
             <span class="sign-up__emoji">&#128575;</span>
             Unfortunately we couldn't invite <strong>{{ latestEmail }}</strong>. Please try another email address or
             contact us for support
