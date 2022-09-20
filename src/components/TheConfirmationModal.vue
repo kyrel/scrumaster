@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import { useScruConfirmation } from '@/stores/scruConfirmation';
-import BaseModal from './BaseModal.vue';
-const scruConfirmation = useScruConfirmation();
+import { useConfirmation } from '@/stores/confirmation';
+import AppModalLayout from './AppModalLayout.vue';
+const confirmation = useConfirmation();
 </script>
 <template>
-    <BaseModal class="confirm-modal" @close="scruConfirmation.opened = false" v-if="scruConfirmation.opened">
+    <AppModalLayout class="confirm-modal" @close="confirmation.opened = false" v-if="confirmation.opened">
         <h3 class="confirm-modal__header">            
-            {{ scruConfirmation.message }}            
+            {{ confirmation.message }}            
         </h3>
         <div class="confirm-modal__controls">
-            <button class="btn" @click="scruConfirmation.confirmClicked">
-                {{ scruConfirmation.confirmButtonText }}
+            <button class="btn" @click="confirmation.confirmClicked">
+                {{ confirmation.confirmButtonText }}
             </button>
-            <button class="btn" @click="scruConfirmation.cancelClicked">
-                {{ scruConfirmation.cancelButtonText }}
+            <button class="btn" @click="confirmation.cancelClicked">
+                {{ confirmation.cancelButtonText }}
             </button>
         </div>
-    </BaseModal>
+    </AppModalLayout>
 </template>
 <style scoped>
 /* @define confirm-modal */

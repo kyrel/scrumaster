@@ -4,7 +4,7 @@ import type { Ticket } from "@/types";
 import { useClickOutside } from '@/composables/clickOutside';
 import { useAutoResetRef } from '@/composables/autoResetRef';
 import { useBoardStore } from '@/stores/board';
-import { useScruConfirmation } from '@/stores/scruConfirmation';
+import { useConfirmation } from '@/stores/confirmation';
 import { useToasts } from '@/stores/toasts';
 import AppIconButton from "./AppIconButton.vue";
 import IconRemove from './icons/IconRemove.vue';
@@ -17,7 +17,7 @@ const props = defineProps<{
 }>()
 
 const boardStore = useBoardStore();
-const scruConfirmation = useScruConfirmation();
+const confirmation = useConfirmation();
 const toasts = useToasts();
 
 const ownVoteShaking = useAutoResetRef(false, 820);
@@ -64,7 +64,7 @@ function removeTicket(ticket: Ticket) {
         toasts.warning("Cannot delete ticket with votes");
         return;
     }
-    scruConfirmation.open("Remove ticket?", () => {
+    confirmation.open("Remove ticket?", () => {
         boardStore.removeTicket(props.categoryId, ticket.id);
     })
 }

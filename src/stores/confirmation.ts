@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue';
 
-export const useScruConfirmation = defineStore('scruConfirmation', () => {
+export const useConfirmation = defineStore('confirmation', () => {
     const opened = ref(false);
     const message = ref("");
     const confirmButtonText = ref("");

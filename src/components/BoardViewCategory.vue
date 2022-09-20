@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { Category } from "@/types";
 import { useBoardStore } from '@/stores/board';
-import { useScruConfirmation } from '@/stores/scruConfirmation';
-import ScruAddTicket from './ScruAddTicket.vue';
+import { useConfirmation } from '@/stores/confirmation';
+import BoardViewCategoryAddTicket from './BoardViewCategoryAddTicket.vue';
 import AppVerticalScroll from './AppVerticalScroll.vue';
 import BoardViewCategoryTicket from "./BoardViewCategoryTicket.vue";
 import BoardViewCategoryName from './BoardViewCategoryName.vue';
@@ -15,14 +15,14 @@ const props = defineProps<{
 }>()
 
 const boardStore = useBoardStore();
-const scruConfirmation = useScruConfirmation();
+const confirmation = useConfirmation();
 
 function addTicket(text: string) {
     boardStore.addTicket(props.category.id, text)
 }
 
 function removeCategory() {
-    scruConfirmation.open("Remove category?", () => {
+    confirmation.open("Remove category?", () => {
         boardStore.removeCategory(props.category.id);
     })
 }
@@ -62,7 +62,7 @@ const unusedVotesTip = computed(()=>{
                         </li>
                     </TransitionGroup>
                 </ul>
-                <ScruAddTicket class="category__add-ticket" @add="(text)=>addTicket(text)" />
+                <BoardViewCategoryAddTicket class="category__add-ticket" @add="(text)=>addTicket(text)" />
             </AppVerticalScroll>
         </div>
     </div>
