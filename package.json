@@ -13,6 +13,8 @@
   "dependencies": {
     "@pinia/testing": "^0.0.14",
     "firebase": "^9.9.4",
+    "focus-trap": "^6.9.4",
+    "focus-trap-vue": "^3.3.1",
     "pinia": "^2.0.21",
     "simplebar": "^5.3.8",
     "vue": "^3.2.38",
