@@ -65,7 +65,12 @@ function removeTicket() {
         return;
     }
     confirmation.open("Remove ticket?", () => {
-        boardStore.removeTicket(props.categoryId, props.ticket.id);
+        if (props.ticket.hasCurrentUserVote || props.ticket.otherVoteCount > 0) {
+            toasts.show("Cannot delete ticket with votes");
+        }
+        else {
+            boardStore.removeTicket(props.categoryId, props.ticket.id);
+        }
     });
 }
 
