@@ -25,7 +25,6 @@
 
     &:active {
         color: var(--text2);
-        /*transform: translate(1px, 1px);*/
     }
 }
 
