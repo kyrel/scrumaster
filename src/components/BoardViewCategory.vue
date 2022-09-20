@@ -1,14 +1,15 @@
 <script setup lang="ts">
+import { computed } from "vue";
 import type { Category } from "@/types";
 import { useBoardStore } from '@/stores/board';
 import { useConfirmation } from '@/stores/confirmation';
+import { useToasts } from "@/stores/toasts";
 import BoardViewCategoryAddTicket from './BoardViewCategoryAddTicket.vue';
 import AppVerticalScroll from './AppVerticalScroll.vue';
 import BoardViewCategoryTicket from "./BoardViewCategoryTicket.vue";
 import BoardViewCategoryName from './BoardViewCategoryName.vue';
 import IconRemove from './icons/IconRemove.vue';
 import AppIconButton from './AppIconButton.vue';
-import { computed } from "vue";
 
 const props = defineProps<{
     category: Category
@@ -16,6 +17,7 @@ const props = defineProps<{
 
 const boardStore = useBoardStore();
 const confirmation = useConfirmation();
+const toasts = useToasts();
 
 function addTicket(text: string) {
     boardStore.addTicket(props.category.id, text);
@@ -23,7 +25,12 @@ function addTicket(text: string) {
 
 function removeCategory() {
     confirmation.open("Remove category?", () => {
-        boardStore.removeCategory(props.category.id);
+        if (props.category.tickets.length == 0) {
+            boardStore.removeCategory(props.category.id);
+        }
+        else {
+            toasts.show("Oops, this category already has tickets! Cannot delete!");
+        }
     });
 }
 
