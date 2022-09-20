@@ -70,6 +70,7 @@ onClickOutside(categoryNameInput, finishCategoryNameEdit, { precondition: () => 
 }
 
 .category-name__display {
+    margin-left: 4px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

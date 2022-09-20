@@ -111,7 +111,7 @@ function removeTicket() {
 /* @define ticket */
 .ticket {
     border: 1px solid var(--border-color);
-    padding: 6px 6px 6px 12px;
+    padding: 6px 6px 12px 12px;
     display: flex;
     flex-direction: row;
     gap: 4px;
@@ -160,9 +160,11 @@ function removeTicket() {
     cursor: pointer;
     list-style: none;
     display: flex;
-    margin: 0;
+    flex-wrap: wrap;
+    margin-top: 12px;
     padding: 0;
     gap: 5px;
+    line-height: 0;
 }
 
 .ticket__vote::after {
