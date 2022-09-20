@@ -99,6 +99,10 @@
     :root {
         @include dark-scheme;
     }
+
+    .simplebar-scrollbar::before {
+        background: #fff;
+    }
 }
 
 [color-scheme="light"] {
@@ -109,6 +113,10 @@
 
 [color-scheme="dark"] {
     @include dark-scheme;
+
+    .simplebar-scrollbar::before {
+        background: #888;
+    }
 }
 
 *,
