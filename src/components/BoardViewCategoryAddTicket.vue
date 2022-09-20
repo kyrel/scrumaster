@@ -37,6 +37,6 @@ function tryAdd() {
 }
 
 .add-ticket__input--error {
-    border: 1px solid var(--color-border-error);
+    border: 1px solid var(--border-error);
 }
 </style>

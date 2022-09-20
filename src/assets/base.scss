@@ -1,41 +1,55 @@
 /* stylelint-disable plugin/selector-bem-pattern */
 :root {
+    /* Brand color components */
     --brand-hue: 210;
     --brand-saturation: 100%;
     --brand-lightness: 50%;
 
+    /* Brand (accent) color for light mode */
     --brand-light: hsl(var(--brand-hue) var(--brand-saturation) var(--brand-lightness));
+
+    /* Text colors for light mode */
     --text1-light: hsl(var(--brand-hue) var(--brand-saturation) 10%);
     --text2-light: hsl(var(--brand-hue) 30% 30%);
 
+    /* Surfaces colors, shadows and borders for light mode  */
     --surface-main-light: hsl(var(--brand-hue) 20% 99%);
     --surface-subtle-light: hsl(var(--brand-hue) 25% 95%);
     --surface-accent-light: hsl(var(--brand-hue) 20% 92%);
-    --border-color-light: hsl(var(--brand-hue) 20% 85%);
+    --surface-success-light: hsl(130deg 45% 80%);
     --surface-error-light: hsl(355deg 70% 90%);
+    --border-color-light: hsl(var(--brand-hue) 20% 85%);
+    --border-error-light: hsl(346deg 100% 60%);
     --surface-shadow-light: var(--brand-hue) 10% 20%;
     --shadow-strength-light: 0.02;
 
+    /* Brand (accent) color for dark mode */
     --brand-dark: hsl(var(--brand-hue) var(--brand-saturation) calc(var(--brand-lightness) / 1.5));
+
+    /* Text colors for dark mode */
     --text1-dark: hsl(var(--brand-hue) 15% 85%);
     --text2-dark: hsl(var(--brand-hue) 5% 65%);
 
-    --surface-subtle-dark: hsl(var(--brand-hue) 10% 15%);
+    /* Surfaces colors, shadows and borders for dark mode mode */
     --surface-main-dark: hsl(var(--brand-hue) 10% 10%);
+    --surface-subtle-dark: hsl(var(--brand-hue) 10% 15%);
     --surface-accent-dark: hsl(var(--brand-hue) 5% 20%);
-    --border-color-dark: hsl(var(--brand-hue) 5% 25%);
+    --surface-success-dark: hsl(135deg 44% 20%);
     --surface-error-dark: hsl(346deg 20% 20%);
-
+    --border-color-dark: hsl(var(--brand-hue) 5% 25%);
+    --border-error-dark: hsl(346deg 80% 40%);
     --surface-shadow-dark: var(--brand-hue) 50% 3%;
     --shadow-strength-dark: 0.8;
-}
 
-:root {
+    /* Standard sizes */
     --border-radius: 4px;
     --spacing-normal: 12px;
     --spacing-bigger: 20px;
     --spacing-for-outline: 2px;
     --vote-point-size: 14px;
+
+    /* Standard font */
+    /* stylelint-disable value-keyword-case */
     --font-main:
         Inter,
         -apple-system,
@@ -49,6 +63,7 @@
         "Droid Sans",
         "Helvetica Neue",
         sans-serif;
+    /* stylelint-enable value-keyword-case */
 }
 
 @mixin light-scheme {
@@ -62,6 +77,8 @@
     --surface-main: var(--surface-main-light);
     --surface-accent: var(--surface-accent-light);
     --border-color: var(--border-color-light);
+    --border-error: var(--border-error-light);
+    --surface-success: var(--surface-success-light);
     --surface-error: var(--surface-error-light);
     --surface-shadow: var(--surface-shadow-light);
     --shadow-strength: var(--shadow-strength-light);
@@ -80,6 +97,8 @@
     --surface-main: var(--surface-main-dark);
     --surface-accent: var(--surface-accent-dark);
     --border-color: var(--border-color-dark);
+    --border-error: var(--border-error-dark);
+    --surface-success: var(--surface-success-dark);
     --surface-error: var(--surface-error-dark);
     --surface-shadow: var(--surface-shadow-dark);
     --shadow-strength: var(--shadow-strength-dark);
@@ -87,11 +106,8 @@
     --over-backdrop2: var(--text1);
 }
 
-/* semantic color variables for this project */
+/* stylelint-disable-next-line no-duplicate-selectors */
 :root {
-    --surface-success: rgba(40 180 64 / 30%);
-    --color-border-error: red;
-
     @include light-scheme;
 }
 
@@ -101,14 +117,12 @@
     }
 
     .simplebar-scrollbar::before {
-        background: #fff;
+        background: #888;
     }
 }
 
 [color-scheme="light"] {
     @include light-scheme;
-
-    --color-border-error: red;
 }
 
 [color-scheme="dark"] {
@@ -134,8 +148,40 @@ body {
     transition: color 0.5s, background-color 0.5s;
     line-height: 1.6;
     font-family: var(--font-main);
+    font-weight: normal;
     font-size: 15px;
     text-rendering: optimizelegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+#app {
+    padding: 0.5rem 2rem;
+    height: 100%;
+
+    @media (max-width: 480px) {
+        padding: 0.5rem 1rem;
+    }
+}
+
+a {
+    text-decoration: none;
+    color: var(--brand-light);
+    transition: 0.4s;
+}
+
+textarea,
+input[type="text"],
+input[type="email"] {
+    font-family: var(--font-main);
+    padding: 6px 8px;
+    border: 1px solid var(--border-color);
+    background-color: var(--surface-subtle);
+    font-size: 14px;
+}
+
+textarea:focus,
+input[type="text"]:focus,
+input[type="email"]:focus {
+    outline: 1px solid var(--border-color);
 }

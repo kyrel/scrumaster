@@ -93,7 +93,7 @@ async function signUp() {
 }
 
 .sign-up__email--error {
-    border: 1px solid var(--color-border-error);
+    border: 1px solid var(--border-error);
 }
 
 .sign-up__success {

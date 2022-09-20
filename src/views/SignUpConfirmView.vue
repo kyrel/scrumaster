@@ -122,7 +122,7 @@ function signUpConfirm() {
 }
 
 .sign-up-confirm__email--error {
-    border: 1px solid var(--color-border-error);
+    border: 1px solid var(--border-error);
 }
 
 .sign-up-confirm__fail {
