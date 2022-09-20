@@ -7,7 +7,7 @@ const toasts = useToasts();
 <template>
     <div class="toasts">
         <TransitionGroup name="toasts-transition-">
-            <div v-for="toast in toasts.items" :key="toast.id" class="toast" :class="'alert'+toast.style">
+            <div v-for="toast in toasts.items" :key="toast.id" class="toast" :class="'toast--'+toast.style">
                 <div>{{ toast.message }}</div>
                 <!-- <button class="btn toast__dismiss-btn" @click="toasts.remove(toast)"><div class="toast__dismiss"><IconCross /></div></button> -->
             </div>
@@ -32,13 +32,18 @@ const toasts = useToasts();
 
 /* @define toast */
 .toast {
-    border-radius: 4px;
-    background-color: var(--surface1);
+    border-radius: var(--border-radius);
+    background-color: var(--surface-accent);
     padding: 12px 16px;
     display: flex;
     gap: 12px;
     align-items: flex-start;
+    border: 1px solid var(--border-color);
 }
+
+/* .toast--error {
+    background-color: var(--surface-error);
+} */
 
 .toast__dismiss-btn {
     padding: 2px 6px;

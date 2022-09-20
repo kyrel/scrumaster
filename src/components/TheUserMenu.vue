@@ -13,6 +13,7 @@ const popupVisible = ref(false);
 
 const el = ref(null as null | HTMLElement);
 
+//TODO: use
 function clickOutside(ev: MouseEvent) {
     if (el.value && !(el.value === ev.target || el.value.contains(ev.target as HTMLElement))) {
         popupVisible.value = false;
@@ -51,12 +52,12 @@ onUnmounted(() => { document.body.removeEventListener("click", clickOutside); })
 
 .user-menu__avatar {
     cursor: pointer;
-    border: 2px solid var(--color-text);
+    /*border: 2px solid var(--text1);
+    border-radius: 12px;*/
     width: 24px;
     height: 24px;
     display: grid;
     place-content: center;
-    border-radius: 12px;
 }
 
 .user-menu__dropdown {
@@ -68,8 +69,8 @@ onUnmounted(() => { document.body.removeEventListener("click", clickOutside); })
     z-index: 99999;
     max-width: 325px;
     padding: 15px 10px;
-    border: 1px solid var(--surface3);
-    background-color: var(--surface2);
+    border: 1px solid var(--surface-accent);
+    background-color: var(--surface-main);
 }
 
 .user-menu__dropdown-email {

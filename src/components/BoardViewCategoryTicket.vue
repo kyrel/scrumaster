@@ -52,7 +52,7 @@ function toggleVote(ticket: Ticket) {
             boardStore.addCurrentUserVote(props.categoryId, ticket.id);
         }
         else {
-            toasts.warning("You have no more votes to spend in this category!");
+            toasts.error("You have no more votes to spend in this category!");
             ownVoteShaking.value = true;            
         }
     }
@@ -61,7 +61,7 @@ function toggleVote(ticket: Ticket) {
 
 function removeTicket(ticket: Ticket) {
     if (ticket.hasCurrentUserVote || ticket.otherVoteCount > 0) {
-        toasts.warning("Cannot delete ticket with votes");
+        toasts.error("Cannot delete ticket with votes");
         return;
     }
     confirmation.open("Remove ticket?", () => {
@@ -110,7 +110,7 @@ function removeTicket(ticket: Ticket) {
 
 /* @define ticket */
 .ticket {
-    border: 1px solid var(--surface1);
+    border: 1px solid var(--border-color);
     padding: 6px 6px 6px 12px;
     display: flex;
     flex-direction: row;

@@ -28,7 +28,7 @@ defineEmits({ "close": null });
 /* @define modal */
 .modal {
     position: relative;
-    background-color: var(--surface2);
+    background-color: var(--surface-main);
     margin: 3rem auto;
     padding: 20px;
     width: 400px;

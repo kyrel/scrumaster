@@ -32,7 +32,7 @@ function toggleIsOn() {
     align-items: center;
     width: 40px;
     height: 22px;
-    background: var(--surface3);
+    background: var(--surface-accent);
     color: var(--text1);
     border: none;
     border-radius: 50px;
@@ -40,12 +40,7 @@ function toggleIsOn() {
     cursor: pointer;
 }
 
-.toggler--on {
-    /*background-color: #28b440;*/
-}
-
 .toggler[disabled] {
-    /*background: var(--border);*/
     opacity: 0.5;
     cursor: default;
 }
@@ -55,7 +50,7 @@ function toggleIsOn() {
     height: 16px;
     margin-left: 0;
     border-radius: 50%;
-    background-color: var(--surface2);
+    background-color: var(--surface-main);
     box-shadow: 0 0 2px rgba(0 0 0 / 25%);
     transition: 0.4s linear;
     display: grid;

@@ -93,7 +93,7 @@ function signUpConfirm() {
     display: flex;
     flex-direction: column;
     padding: 12px 18px;
-    border: 1px solid var(--surface3);
+    border: 1px solid var(--border-color);
 }
 
 .error-notification__header {
@@ -110,7 +110,7 @@ function signUpConfirm() {
     display: flex;
     flex-direction: column;
     padding: 12px 18px;
-    border: 1px solid var(--surface3);
+    border: 1px solid var(--surface-accent);
 }
 
 .sign-up-confirm__prompt {
@@ -126,7 +126,7 @@ function signUpConfirm() {
 }
 
 .sign-up-confirm__fail {
-    border-radius: 4px;
+    border-radius: var(--border-radius);
     background-color: var(--surface-error);
     padding: 8px 12px;
     font-size: 0.8em;

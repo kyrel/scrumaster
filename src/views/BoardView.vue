@@ -60,7 +60,7 @@ watchEffect(() => {
 .category-list {
     list-style: none;
     display: flex;
-    gap: 12px;
+    gap: calc(var(--spacing-bigger) - 2 * var(--spacing-for-outline));
     padding: 0;
     height: 100%;
     max-width: 100%;

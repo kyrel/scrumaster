@@ -27,7 +27,7 @@ function removeCategory() {
     });
 }
 
-const unusedVotesTip = computed(()=>{
+const unusedVotesTip = computed(() => {
     const count = props.category.unusedCurrentUserVotes;
     if (count == 0) return 'No votes left to spend';
     if (count == 1) return 'You can spend one more vote';
@@ -68,7 +68,7 @@ const unusedVotesTip = computed(()=>{
     </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 /* @define unused-vote-transition */
 .unused-vote-transition--enter-active,
 .unused-vote-transition--leave-active {
@@ -109,13 +109,13 @@ const unusedVotesTip = computed(()=>{
 }
 
 .category__header {
-    border: 1px solid var(--surface4);
-    background-color: var(--surface3);
-    margin-bottom: 18px;
+    border: 1px solid var(--border-color);
+    background-color: var(--surface-accent);
+    margin-bottom: calc(var(--spacing-bigger) - var(--spacing-for-outline));
     padding: 2px 8px;
     font-weight: 700;
-    margin-left: 4px;
-    margin-right: 4px;
+    margin-left: var(--spacing-for-outline);
+    margin-right: var(--spacing-for-outline);
     display: flex;
     align-items: center;
     height: 38px;
@@ -160,14 +160,14 @@ const unusedVotesTip = computed(()=>{
 }
 
 .category__tickets {
-    margin-left: 4px;
-    margin-right: 4px;
+    margin-left: var(--spacing-for-outline);
+    margin-right: var(--spacing-for-outline);
 }
 
 .category__add-ticket {
-    margin-left: 4px;
-    margin-right: 4px;
-    margin-top: 2px;
+    margin-left: var(--spacing-for-outline);
+    margin-right: var(--spacing-for-outline);
+    margin-top: var(--spacing-for-outline);
 }
 
 /* @define ticket-list */
@@ -179,14 +179,14 @@ const unusedVotesTip = computed(()=>{
 }
 
 .ticket-list__item {
-    margin-bottom: 12px;
-}
+    margin-bottom: var(--spacing-normal);
 
-.ticket-list__item:first-child {
-    margin-top: 2px;
-}
+    &:first-child {
+        margin-top: var(--spacing-for-outline);
+    }
 
-.ticket-list__item:last-child {
-    margin-bottom: 10px;
+    &:last-child {
+        margin-bottom: calc(var(--spacing-normal) - var(--spacing-for-outline));
+    }
 }
 </style>

@@ -33,6 +33,7 @@ function tryAdd() {
 .add-ticket__input {
     width: 100%;
     resize: none;
+    margin-bottom: 4px;
 }
 
 .add-ticket__input--error {

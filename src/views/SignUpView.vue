@@ -81,7 +81,7 @@ async function signUp() {
     display: flex;
     flex-direction: column;
     padding: 12px 18px;
-    border: 1px solid var(--surface3);
+    border: 1px solid var(--surface-accent);
 }
 
 .sign-up__prompt {
@@ -97,7 +97,7 @@ async function signUp() {
 }
 
 .sign-up__success {
-    border-radius: 4px;
+    border-radius: var(--border-radius);
     background-color: var(--surface-success);
     padding: 8px 12px;
     font-size: 0.8em;
@@ -105,7 +105,7 @@ async function signUp() {
 }
 
 .sign-up__fail {
-    border-radius: 4px;
+    border-radius: var(--border-radius);
     background-color: var(--surface-error);
     padding: 8px 12px;
     font-size: 0.8em;
