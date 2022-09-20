@@ -90,7 +90,9 @@ function removeTicket() {
                 class="ticket__vote-zone" :title="ticket.hasCurrentUserVote? 'Click to revoke vote': 'Click to vote'" 
                 @click="toggleVote"
             >
-                <li v-for="n in ticket.otherVoteCount" :key="n" class="ticket__vote" />
+                <TransitionGroup name="other-user-vote-transition-">
+                    <li v-for="n in ticket.otherVoteCount" :key="ticket.otherVoteCount-n-1" class="ticket__vote" />
+                </TransitionGroup>
                 <li
                     class="ticket__vote"
                     :class="[ticket.hasCurrentUserVote ? 'ticket__vote--current-yes': 'ticket__vote--current-no', {'ticket__vote--shake': ownVoteShaking}]" 
@@ -233,5 +235,17 @@ function removeTicket() {
     @media (pointer: coarse) {
         visibility: visible;
     }
+}
+
+/* @define other-user-vote-transition */
+.other-user-vote-transition--enter-active,
+.other-user-vote-transition--leave-active {
+    transition: all 0.128s ease;
+}
+
+.other-user-vote-transition--enter-from,
+.other-user-vote-transition--leave-to {
+    opacity: 0;
+    transform: translateX(-20px);
 }
 </style>

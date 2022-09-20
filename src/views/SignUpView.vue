@@ -38,6 +38,7 @@ async function signUp() {
         console.log("error sending signin link", errorCode, errorMessage);
         latestEmail.value = email.value;
         latestResult.value = false;
+        actionInProgress.value = false;
     }
 }
 
