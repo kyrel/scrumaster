@@ -118,7 +118,7 @@ const unusedVotesTip = computed(() => {
     margin-right: var(--spacing-for-outline);
     display: flex;
     align-items: center;
-    height: 38px;
+    height: 42px;
     gap: 6px;
     flex-shrink: 0;
 }
