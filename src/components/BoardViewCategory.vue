@@ -43,7 +43,7 @@ const unusedVotesTip = computed(()=>{
             <div class="category__actions">
                 <ul v-if="category.tickets.length > 0" class="category__unused-votes" :title="unusedVotesTip">
                     <TransitionGroup name="unused-vote-transition-">
-                        <li v-for="n in category.unusedCurrentUserVotes" :key="n" class="ticket__vote ticket__vote--current-yes" />
+                        <li v-for="n in category.unusedCurrentUserVotes" :key="n" class="category__unused-vote" />
                     </TransitionGroup>
                 </ul>
                 <AppIconButton v-else class="category__remove" @click="removeCategory">
@@ -145,6 +145,15 @@ const unusedVotesTip = computed(()=>{
     gap: 5px;
 }
 
+.category__unused-vote::after {
+    content: "";
+    width: var(--vote-point-size);
+    height: var(--vote-point-size);
+    display: inline-block;
+    background-color: var(--brand);
+    border-radius: calc(var(--vote-point-size) / 2);
+}
+
 .category__content {
     flex-grow: 1;
     overflow-y: hidden;
@@ -179,23 +188,5 @@ const unusedVotesTip = computed(()=>{
 
 .ticket-list__item:last-child {
     margin-bottom: 10px;
-}
-
-.ticket__vote::after {
-    content: '';
-    width: var(--vote-point-size);
-    height: var(--vote-point-size);
-    display: inline-block;
-    border: 1px solid var(--text2);
-    background-color: var(--text2);
-    opacity: 0.5;
-    border-radius: calc(var(--vote-point-size) / 2);
-}
-
-.ticket__vote--current-yes::after {
-    border-color: var(--brand);
-    background-color: var(--brand);
-    border-width: 3px;
-    opacity: 1;
 }
 </style>

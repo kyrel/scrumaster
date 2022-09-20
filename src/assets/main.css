@@ -26,50 +26,6 @@ input[type="email"]:focus {
     outline: 1px solid var(--surface4);
 }
 
-.btn {
-    display: inline-block;
-    box-sizing: border-box;
-    padding: 8px 32px;
-    font-family: var(--font-main);
-    /*font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 155%;
-    text-align: center;*/
-    color: var(--text1);
-    /*text-decoration: none;*/
-    background-color: transparent;
-    border: 2px solid var(--brand);
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.btn:hover {
-    background-color: var(--brand);
-    color: var(--text-inverse);
-}
-
-.btn:disabled {
-    background-color: transparent;
-    border-color: var(--brand);
-    color: var(--text1);
-    opacity: 0.5;
-    cursor: default;
-}
-
-.btn:active {
-    opacity: 0.9;
-}
-
-.btn-plain {
-    display: inline-block;
-    border: none;
-    background-color: transparent;
-    color: var(--text1);
-    cursor: pointer;
-    padding: 0;
-}
-
 @media (max-width: 480px) {
     #app {
         padding: 1rem;
