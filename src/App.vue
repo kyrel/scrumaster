@@ -40,7 +40,7 @@ const authStore = useAuthStore();
     display: flex;
     align-items: center;
     gap: 6px;
-    margin-bottom: 0.67em;
+    margin-bottom: 1.5em;
 }
 
 .page__title {

@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { useAuthStore } from '@/stores/auth';
-import { onMounted, onUnmounted, ref } from 'vue';
 import IconUser from './icons/IconUser.vue';
+import { onClickOutside } from '@/composables/clickOutside';
 
 const authStore = useAuthStore();
 
@@ -10,19 +11,9 @@ function signOut() {
 }
 
 const popupVisible = ref(false);
-
 const el = ref(null as null | HTMLElement);
 
-//TODO: use
-function clickOutside(ev: MouseEvent) {
-    if (el.value && !(el.value === ev.target || el.value.contains(ev.target as HTMLElement))) {
-        popupVisible.value = false;
-    }
-}
-
-onMounted(() => { document.body.addEventListener("click", clickOutside); });
-
-onUnmounted(() => { document.body.removeEventListener("click", clickOutside); });
+onClickOutside(el, () => { popupVisible.value = false; }, { precondition: () => popupVisible.value });
 
 </script>
 
@@ -52,12 +43,13 @@ onUnmounted(() => { document.body.removeEventListener("click", clickOutside); })
 
 .user-menu__avatar {
     cursor: pointer;
-    /*border: 2px solid var(--text1);
-    border-radius: 12px;*/
     width: 24px;
     height: 24px;
     display: grid;
     place-content: center;
+
+    // border: 2px solid var(--text1);
+    // border-radius: 12px;
 }
 
 .user-menu__dropdown {

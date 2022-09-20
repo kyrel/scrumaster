@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { nextTick, ref } from 'vue';
 import type { Ticket } from "@/types";
-import { useClickOutside } from '@/composables/clickOutside';
+import { onClickOutside } from '@/composables/clickOutside';
 import { useAutoResetRef } from '@/composables/autoResetRef';
 import { useBoardStore } from '@/stores/board';
 import { useConfirmation } from '@/stores/confirmation';
@@ -43,29 +43,29 @@ function finishEdit() {
     isEditing.value = false;
 }
 
-useClickOutside(textInput, finishEdit, { precondition: () => isEditing.value });
+onClickOutside(textInput, finishEdit, { precondition: () => isEditing.value });
 
-function toggleVote(ticket: Ticket) {
-    if (!ticket.hasCurrentUserVote) {
+function toggleVote() {
+    if (!props.ticket.hasCurrentUserVote) {
         if (props.canAddVote) {
             //TODO: some guard on DB side?
-            boardStore.addCurrentUserVote(props.categoryId, ticket.id);
+            boardStore.addCurrentUserVote(props.categoryId, props.ticket.id);
         }
         else {
             toasts.error("You have no more votes to spend in this category!");
             ownVoteShaking.value = true;            
         }
     }
-    else boardStore.removeCurrentUserVote(props.categoryId, ticket.id);
+    else boardStore.removeCurrentUserVote(props.categoryId, props.ticket.id);
 }
 
-function removeTicket(ticket: Ticket) {
-    if (ticket.hasCurrentUserVote || ticket.otherVoteCount > 0) {
+function removeTicket() {
+    if (props.ticket.hasCurrentUserVote || props.ticket.otherVoteCount > 0) {
         toasts.error("Cannot delete ticket with votes");
         return;
     }
     confirmation.open("Remove ticket?", () => {
-        boardStore.removeTicket(props.categoryId, ticket.id);
+        boardStore.removeTicket(props.categoryId, props.ticket.id);
     });
 }
 
@@ -88,7 +88,7 @@ function removeTicket(ticket: Ticket) {
             </textarea>
             <ul
                 class="ticket__vote-zone" :title="ticket.hasCurrentUserVote? 'Click to revoke vote': 'Click to vote'" 
-                @click="toggleVote(ticket)"
+                @click="toggleVote"
             >
                 <li v-for="n in ticket.otherVoteCount" :key="n" class="ticket__vote" />
                 <li
@@ -98,7 +98,7 @@ function removeTicket(ticket: Ticket) {
             </ul>
         </div>
         <div class="ticket__controls">
-            <i class="ticket__remove" @click="removeTicket(ticket)">
+            <i class="ticket__remove" @click="removeTicket">
                 <IconRemove />
             </i>
         </div>
@@ -195,7 +195,6 @@ function removeTicket(ticket: Ticket) {
 .ticket__vote--current-no {
     visibility: hidden;
 
-    /* TODO: decide whether we need this or not */
     @media (hover: none) {
         visibility: visible;
     }
@@ -215,6 +214,8 @@ function removeTicket(ticket: Ticket) {
     visibility: visible;
 }
 
+@include shake.shake-keyframes(shake2px, 2px);
+
 .ticket__edit-button {
     margin-left: 4px;
     visibility: hidden;
@@ -231,6 +232,4 @@ function removeTicket(ticket: Ticket) {
         visibility: visible;
     }
 }
-
-@include shake.shake-keyframes(shake2px, 2px);
 </style>

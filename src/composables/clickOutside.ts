@@ -1,9 +1,9 @@
 import { onMounted, onUnmounted, ref, type Ref } from "vue";
 
-export function useClickOutside(el: Ref<HTMLElement | null> | HTMLElement | null, callback: () => void, options: {
+export function onClickOutside(el: Ref<HTMLElement | null> | HTMLElement | null, callback: () => void, options?: {
     stopPropagation?: boolean,
     precondition?: () => boolean
-} | null) {
+}) {
     const {
         stopPropagation = true,
         precondition
@@ -12,7 +12,7 @@ export function useClickOutside(el: Ref<HTMLElement | null> | HTMLElement | null
 
     function clickOutside(ev: MouseEvent) {
         if (precondition) {
-            if (!precondition()) return;            
+            if (!precondition()) return;
         }
         if (elRef.value && !(elRef.value === ev.target || elRef.value.contains(ev.target as HTMLElement))) {
             if (stopPropagation) ev.stopPropagation();

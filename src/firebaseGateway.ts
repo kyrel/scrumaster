@@ -3,7 +3,7 @@ import { getAuth, isSignInWithEmailLink, onAuthStateChanged as fireOnAuthStateCh
 import { getDatabase, onValue, push, ref, set, update } from "firebase/database";
 import type { User, Category, Ticket } from "./types";
 
-// TODO: Add SDKs for Firebase products that you want to use
+// Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 const firebaseConfig = {
@@ -121,7 +121,7 @@ function onBoardChange(userUidGetter: () => string | null, callback: (board: Cat
             const categoryVal = dbCategory.val();
             const category: Category = {
                 id: dbCategory.key!,
-                name: categoryVal.name, //TODO: an easier-on-eye mapping method                
+                name: categoryVal.name,
                 tickets,
                 unusedCurrentUserVotes: currentUserVotes > 2 ? 0 : 2 - currentUserVotes
             };

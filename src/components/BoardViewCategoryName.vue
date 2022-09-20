@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { useBoardStore } from '@/stores/board';
-import type { Category } from "@/types";
 import { nextTick, onMounted, ref } from 'vue';
+import type { Category } from "@/types";
+import { onClickOutside } from '@/composables/clickOutside';
+import { useBoardStore } from '@/stores/board';
 import IconPencil from './icons/IconPencil.vue';
 import AppIconButton from './AppIconButton.vue';
-import { useClickOutside } from '@/composables/clickOutside';
 
 const props = defineProps<{
     category: Category
@@ -42,7 +42,7 @@ onMounted(async () => {
     }
 });
 
-useClickOutside(categoryNameInput, finishCategoryNameEdit, { precondition: () => isEditingCategoryName.value });
+onClickOutside(categoryNameInput, finishCategoryNameEdit, { precondition: () => isEditingCategoryName.value });
 
 </script>
 
