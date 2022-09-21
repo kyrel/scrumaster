@@ -19,7 +19,7 @@ Technology choice mostly driven by the facts that SEO & time to first content do
 
 ## Accessing the deployed instance
 
-Use https://voorhoede-assignment.firebaseapp.com to work with the instance of the app deployed at Firebase hosting.
+Use https://voorhoede-assignment.web.app to work with the instance of the app deployed at Firebase hosting.
 
 ## Running & building
 
