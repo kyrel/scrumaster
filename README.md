@@ -37,11 +37,11 @@ to run unit tests using Vitest
 
 `npm run lint`
 
-Run the ESLint checks
+to run the ESLint checks
 
 `npx stylelint "**/*.vue" "**/*.scss"`
 
-Run the Stylelint checks
+to run the Stylelint checks
 
 ## Features implemented
 
