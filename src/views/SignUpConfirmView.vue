@@ -57,7 +57,7 @@ function signUpConfirm() {
         </h2>
         <p>
             Did you try to use the same link to sign in again?<br>
-            Unfortunately those are one-timers, and also exprire with time. 
+            Unfortunately those are one-timers, and also expire with time. 
             Please <router-link to="/signup">request another one</router-link>.
         </p>
     </div>

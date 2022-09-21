@@ -107,8 +107,14 @@
 }
 
 /* stylelint-disable-next-line no-duplicate-selectors */
-:root {
-    @include light-scheme;
+// :root {
+//     @include light-scheme;
+// }
+
+@media (prefers-color-scheme: light) {
+    :root {
+        @include light-scheme;
+    }
 }
 
 @media (prefers-color-scheme: dark) {
