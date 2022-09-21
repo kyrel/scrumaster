@@ -71,6 +71,7 @@ to run the Stylelint checks
 * Staring out a new board
 * Reordering of categories
 * Less intrusive switching to edit mode (e.g. without ticket height changing)
+* Better accessibility & keyboard navigation
 
 ## Questionable decisions redarding UI/UX
 
