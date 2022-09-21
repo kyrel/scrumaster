@@ -26,8 +26,11 @@ function onAuthStateChanged(callback: (user: User | null) => void) {
 }
 
 async function sendAuthLink(email: string) {
+    const urlParts = window.location.href.split("/");
+    const rootUrl = urlParts[0] + "//" + urlParts[2];
+    console.log(rootUrl);
     const actionCodeSettings = {
-        url: import.meta.env.VITE_ROOT_URL + 'signupconfirm',
+        url: rootUrl + '/signupconfirm',
         handleCodeInApp: true
         // iOS: { bundleId: 'com.example.ios' },
         // android: { packageName: 'com.example.android', installApp: true, minimumVersion: '12' },
