@@ -19,7 +19,7 @@ Technology choice mostly driven by the facts that SEO & time to first content do
 
 ## Accessing the deployed instance
 
-Use https://voorhoede-assignment.firebaseapp.com to work with the instance of the app deployed at Firebase hosting.
+Use https://voorhoede-assignment.web.app to work with the instance of the app deployed at Firebase hosting.
 
 ## Running & building
 
@@ -37,11 +37,11 @@ to run unit tests using Vitest
 
 `npm run lint`
 
-Run the ESLint checks
+to run the ESLint checks
 
 `npx stylelint "**/*.vue" "**/*.scss"`
 
-Run the Stylelint checks
+to run the Stylelint checks
 
 ## Features implemented
 
@@ -71,6 +71,7 @@ Run the Stylelint checks
 * Staring out a new board
 * Reordering of categories
 * Less intrusive switching to edit mode (e.g. without ticket height changing)
+* Better accessibility & keyboard navigation
 
 ## Questionable decisions redarding UI/UX
 
